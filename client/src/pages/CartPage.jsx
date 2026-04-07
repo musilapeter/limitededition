@@ -1,10 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../app/store/authStore';
 import { Button } from '../components/common/Button';
 import { Loader } from '../components/common/Loader';
 import { EmptyState } from '../components/common/EmptyState';
 import { fetchCart, removeCartItem, upsertCartItem } from '../services/cartService';
 
 export const CartPage = () => {
+  const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
   const queryClient = useQueryClient();
   const query = useQuery({ queryKey: ['cart'], queryFn: fetchCart });
 
@@ -21,6 +25,11 @@ export const CartPage = () => {
   if (query.isLoading) return <Loader text="Loading cart..." />;
 
   const items = query.data?.items || [];
+  const subtotal = items.reduce(
+    (sum, item) => sum + Number(item?.product?.price || 0) * Number(item.quantity || 0),
+    0,
+  );
+
   if (!items.length) return <EmptyState text="Your curated rail is empty." />;
 
   return (
@@ -74,6 +83,25 @@ export const CartPage = () => {
           </div>
         </div>
       ))}
+
+      <div className="glass-panel flex flex-col gap-3 rounded-xl p-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-ink/80">
+          Subtotal: <span className="font-bold text-hotPink">${subtotal.toFixed(2)}</span>
+        </p>
+        <Button
+          onClick={() => {
+            if (!user) {
+              navigate('/login', { state: { from: { pathname: '/cart' } } });
+              return;
+            }
+
+            // Placeholder until checkout page is implemented.
+            window.alert('Checkout flow is next. You are signed in and ready to proceed.');
+          }}
+        >
+          {user ? 'Proceed to Checkout' : 'Sign In to Checkout'}
+        </Button>
+      </div>
     </div>
   );
 };

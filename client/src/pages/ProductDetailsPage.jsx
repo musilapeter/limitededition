@@ -60,7 +60,18 @@ export const ProductDetailsPage = () => {
 
         <Button
           onClick={() =>
-            mutation.mutate({ productId: product._id, variantId: selected._id, quantity: 1 })
+            mutation.mutate({
+              productId: product._id,
+              variantId: selected._id,
+              quantity: 1,
+              productSnapshot: {
+                _id: product._id,
+                name: product.name,
+                slug: product.slug,
+                images: product.images,
+                price: product.price,
+              },
+            })
           }
           disabled={!selected || selected.quantity === 0 || mutation.isPending}
         >

@@ -23,14 +23,7 @@ export const router = createBrowserRouter(
         { path: 'collections', element: <CollectionsPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'products/:slug', element: <ProductDetailsPage /> },
-        {
-          path: 'cart',
-          element: (
-            <RequireAuth>
-              <CartPage />
-            </RequireAuth>
-          ),
-        },
+        { path: 'cart', element: <CartPage /> },
         { path: 'login', element: <LoginPage /> },
         { path: 'register', element: <RegisterPage /> },
         {
