@@ -1,9 +1,9 @@
 export const AdminTable = ({ headers, rows }) => {
   return (
-    <div className="overflow-hidden rounded-2xl border border-black/10 bg-white p-4">
+    <div className="py-2">
       <div className="space-y-3 md:hidden">
         {rows.map((row, idx) => (
-          <div key={idx} className="rounded-xl border border-white/10 p-3">
+          <div key={idx} className="border-t border-black/10 py-3 first:border-0">
             {row.map((cell, index) => (
               <div key={index} className="flex items-start justify-between gap-3 py-1.5 text-sm">
                 <span className="text-ink/60">{headers[index]}</span>

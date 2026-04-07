@@ -39,13 +39,13 @@ export const ProductTile = ({ product }) => {
   };
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-black/10 bg-white">
+    <article className="overflow-hidden bg-white">
       <img
         src={product.images?.[0]}
         alt={product.name}
         className="h-64 w-full object-cover transition duration-500 hover:scale-105"
       />
-      <div className="space-y-3 p-4">
+      <div className="space-y-3 py-4">
         <div className="flex items-center justify-between">
           <h3 className="font-heading text-xl">{product.name}</h3>
           {highlightVariant && <StockBadge variant={highlightVariant} />}

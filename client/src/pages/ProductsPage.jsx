@@ -31,7 +31,7 @@ export const ProductsPage = () => {
     <div className="space-y-6">
       <h1 className="font-heading text-3xl text-electricLime sm:text-4xl">Style Browse</h1>
 
-      <div className="pulse-section-soft grid gap-3 rounded-2xl border border-vividViolet/30 p-4 md:grid-cols-5">
+      <div className="pulse-section-soft grid gap-3 py-4 md:grid-cols-5">
         <select
           className="w-full rounded-lg border border-vividViolet/25 bg-pearl p-2 text-ink"
           value={filters.category}

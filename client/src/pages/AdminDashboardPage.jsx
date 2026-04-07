@@ -29,27 +29,27 @@ export const AdminDashboardPage = () => {
 
       <div className="space-y-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <section className="rounded-2xl border border-black/10 bg-white p-4">
+          <section className="py-2">
             <p className="text-xs text-cyberTurquoise">Total Products</p>
             <h2 className="mt-2 text-3xl font-bold">{summary.totalProducts}</h2>
           </section>
-          <section className="rounded-2xl border border-black/10 bg-white p-4">
+          <section className="py-2">
             <p className="text-xs text-cyberTurquoise">Active Collections</p>
             <h2 className="mt-2 text-3xl font-bold">
               {collections.filter((item) => item.isActive).length}
             </h2>
           </section>
-          <section className="rounded-2xl border border-black/10 bg-white p-4">
+          <section className="py-2">
             <p className="text-xs text-cyberTurquoise">Low Stock Variants</p>
             <h2 className="mt-2 text-3xl font-bold text-hotPink">{summary.lowStockVariants}</h2>
           </section>
-          <section className="rounded-2xl border border-black/10 bg-white p-4">
+          <section className="py-2">
             <p className="text-xs text-cyberTurquoise">Out of Stock Variants</p>
             <h2 className="mt-2 text-3xl font-bold text-hotPink">{summary.outOfStockVariants}</h2>
           </section>
         </div>
 
-        <section className="rounded-2xl border border-black/10 bg-white p-4">
+        <section className="py-2">
           <div className="flex flex-wrap gap-3">
             <Link
               className="rounded-full border border-vividViolet/70 px-4 py-2 text-sm text-vividViolet"
@@ -72,7 +72,7 @@ export const AdminDashboardPage = () => {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-black/10 bg-white p-4">
+        <section className="py-2">
           <h3 className="mb-3 font-heading text-2xl text-electricLime">Low-Stock Alerts</h3>
           <div className="space-y-2 text-sm">
             {lowStockProducts.map((product) => (

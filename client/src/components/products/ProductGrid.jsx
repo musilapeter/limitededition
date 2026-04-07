@@ -3,7 +3,7 @@ import { ProductTile } from './ProductTile';
 export const ProductGrid = ({ products }) => {
   if (!products?.length) {
     return (
-      <div className="rounded-2xl border border-black/10 bg-white p-8 text-center text-ink/70">
+      <div className="py-8 text-center text-ink/70">
         No products match this style filter.
       </div>
     );

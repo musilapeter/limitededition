@@ -6,7 +6,7 @@ export const CollectionBanner = ({ collection }) => {
   return (
     <Link
       to={`/collections/${collection.slug}`}
-      className="fade-in relative overflow-hidden rounded-3xl border border-vividViolet/15 p-6 sm:p-8"
+      className="fade-in relative block overflow-hidden p-6 sm:p-8"
       style={{
         backgroundImage: `linear-gradient(160deg, rgba(255,255,255,.86), rgba(245,245,245,.9)), url(${collection.heroImage})`,
         backgroundSize: 'cover',

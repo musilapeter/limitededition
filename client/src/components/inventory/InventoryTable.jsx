@@ -1,11 +1,11 @@
 export const InventoryTable = ({ logs }) => {
   return (
-    <section className="rounded-2xl border border-black/10 bg-white p-4">
+    <section className="py-2">
       <h3 className="mb-3 font-heading text-xl sm:text-2xl">Inventory Movement Log</h3>
 
       <div className="space-y-3 md:hidden">
         {logs?.map((log) => (
-          <div key={log._id} className="rounded-xl border border-white/10 p-3 text-sm">
+          <div key={log._id} className="border-t border-black/10 py-3 text-sm first:border-0">
             <div className="flex items-start justify-between py-1">
               <span className="text-ink/60">SKU</span>
               <span>{log.sku}</span>
@@ -48,7 +48,7 @@ export const InventoryTable = ({ logs }) => {
           </thead>
           <tbody>
             {logs?.map((log) => (
-              <tr key={log._id} className="border-t border-white/10">
+              <tr key={log._id} className="border-t border-black/10">
                 <td className="py-2">{log.sku}</td>
                 <td className="py-2 uppercase">{log.action}</td>
                 <td className="py-2">{log.previousQuantity}</td>

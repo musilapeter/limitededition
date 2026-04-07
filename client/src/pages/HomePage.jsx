@@ -19,7 +19,7 @@ export const HomePage = () => {
 
   return (
     <div className="space-y-10 fade-in">
-      <section className="rounded-3xl border border-hotPink/40 bg-hero-glow p-5 sm:p-8">
+      <section className="bg-hero-glow px-1 py-5 sm:py-8">
         <p className="pulse-subtitle text-xs uppercase tracking-[0.4em]">Clothline House</p>
         <h1 className="pulse-title mt-4 max-w-3xl font-heading text-3xl leading-tight sm:text-4xl md:text-6xl">
           Curated silhouettes for modern movement.
@@ -38,7 +38,7 @@ export const HomePage = () => {
 
       {collectionsQuery.data?.[0] && <CollectionBanner collection={collectionsQuery.data[0]} />}
 
-      <section className="pulse-section-light space-y-4 rounded-3xl p-5 sm:p-8">
+      <section className="pulse-section-light space-y-4 px-1 py-5 sm:py-8">
         <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-end">
           <h2 className="font-heading text-2xl text-hotPink sm:text-3xl">Featured Pieces</h2>
           <Link to="/collections" className="text-sm text-vividViolet underline underline-offset-4">

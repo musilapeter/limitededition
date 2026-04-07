@@ -38,7 +38,7 @@ export const CartPage = () => {
       {items.map((item) => (
         <div
           key={`${item.product._id}-${item.variantId}`}
-          className="flex flex-col items-start justify-between gap-3 rounded-xl border border-black/10 bg-white p-4 sm:flex-row sm:items-center"
+          className="flex flex-col items-start justify-between gap-3 border-t border-black/10 py-4 sm:flex-row sm:items-center"
         >
           <div>
             <p className="font-semibold">{item.product.name}</p>
@@ -84,7 +84,7 @@ export const CartPage = () => {
         </div>
       ))}
 
-      <div className="flex flex-col gap-3 rounded-xl border border-black/10 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 border-t border-black/10 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-ink/80">
           Subtotal: <span className="font-bold text-hotPink">${subtotal.toFixed(2)}</span>
         </p>
