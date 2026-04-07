@@ -1,26 +1,38 @@
+import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuthStore } from '../../app/store/authStore';
 import { Button } from '../common/Button';
 
 export const Navbar = () => {
+  const [open, setOpen] = useState(false);
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-ink/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <Link to="/" className="font-heading text-2xl text-pearl">
           LimitedEdition
         </Link>
 
-        <nav className="flex items-center gap-5 text-sm text-pearl/90">
+        <button
+          type="button"
+          className="rounded-lg border border-white/20 px-3 py-1.5 text-sm md:hidden"
+          onClick={() => setOpen((prev) => !prev)}
+        >
+          Menu
+        </button>
+
+        <nav
+          className={`w-full flex-col items-center gap-5 text-sm text-pearl/90 md:flex md:w-auto md:flex-row ${open ? 'flex' : 'hidden'}`}
+        >
           <NavLink to="/collections">Collections</NavLink>
           <NavLink to="/products">Products</NavLink>
           <NavLink to="/cart">Cart</NavLink>
           {user?.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex w-full items-center justify-end gap-2 md:w-auto">
           {user ? (
             <>
               <span className="hidden text-xs text-pearl/70 md:inline">{user.email}</span>

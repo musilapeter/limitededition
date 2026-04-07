@@ -19,10 +19,13 @@ export const AdminDashboardPage = () => {
     return <Loader text="Loading admin dashboard..." />;
   }
 
-  const summary = summaryQuery.data;
+  const summary =
+    summaryQuery.data || { totalProducts: 0, lowStockVariants: 0, outOfStockVariants: 0 };
+  const collections = collectionsQuery.data || [];
+  const lowStockProducts = lowStockQuery.data || [];
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
+    <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
       <AdminSidebar />
 
       <div className="space-y-6">
@@ -34,7 +37,7 @@ export const AdminDashboardPage = () => {
           <Card>
             <p className="text-xs text-pearl/70">Active Collections</p>
             <h2 className="mt-2 text-3xl font-bold">
-              {collectionsQuery.data.filter((item) => item.isActive).length}
+              {collections.filter((item) => item.isActive).length}
             </h2>
           </Card>
           <Card>
@@ -67,12 +70,12 @@ export const AdminDashboardPage = () => {
         <Card>
           <h3 className="mb-3 font-heading text-2xl">Low-Stock Alerts</h3>
           <div className="space-y-2 text-sm">
-            {lowStockQuery.data.map((product) => (
+            {lowStockProducts.map((product) => (
               <p key={product._id}>
                 {product.name} has limited stock variants.
               </p>
             ))}
-            {!lowStockQuery.data.length && <p className="text-pearl/70">No low-stock alerts currently.</p>}
+            {!lowStockProducts.length && <p className="text-pearl/70">No low-stock alerts currently.</p>}
           </div>
         </Card>
 

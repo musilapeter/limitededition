@@ -20,14 +20,19 @@ export const ProductDetailsPage = () => {
   if (query.isError) return <ErrorState message="Product not found" />;
 
   const product = query.data;
+  if (!product) return <ErrorState message="Product unavailable" />;
   const selected = product.variants.find((variant) => variant._id === variantId) || product.variants[0];
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-      <img src={product.images?.[0]} alt={product.name} className="h-[520px] w-full rounded-2xl object-cover" />
+      <img
+        src={product.images?.[0]}
+        alt={product.name}
+        className="h-80 w-full rounded-2xl object-cover sm:h-[420px] lg:h-[520px]"
+      />
 
       <div className="space-y-4">
-        <h1 className="font-heading text-5xl">{product.name}</h1>
+        <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl">{product.name}</h1>
         <p className="text-pearl/75">{product.description}</p>
         <p className="text-2xl font-bold text-sand">${product.price}</p>
 
