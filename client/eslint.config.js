@@ -14,6 +14,9 @@ export default [
         window: 'readonly',
         document: 'readonly',
         localStorage: 'readonly',
+        console: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
       },
     },
     rules: {
