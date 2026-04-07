@@ -9,7 +9,7 @@ export const AdminSidebar = () => {
   ];
 
   return (
-    <aside className="glass-panel h-fit rounded-2xl p-4">
+    <aside className="h-fit rounded-2xl border border-black/10 bg-white p-4">
       <h3 className="mb-4 font-heading text-lg">Control Studio</h3>
       <div className="flex gap-2 overflow-x-auto pb-1 text-sm lg:flex-col lg:overflow-visible">
         {links.map((link) => (

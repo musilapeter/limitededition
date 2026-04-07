@@ -1,8 +1,6 @@
-import { Card } from '../common/Card';
-
 export const InventoryTable = ({ logs }) => {
   return (
-    <Card>
+    <section className="rounded-2xl border border-black/10 bg-white p-4">
       <h3 className="mb-3 font-heading text-xl sm:text-2xl">Inventory Movement Log</h3>
 
       <div className="space-y-3 md:hidden">
@@ -62,6 +60,6 @@ export const InventoryTable = ({ logs }) => {
           </tbody>
         </table>
       </div>
-    </Card>
+    </section>
   );
 };

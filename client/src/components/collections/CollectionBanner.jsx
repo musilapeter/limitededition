@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
+
 export const CollectionBanner = ({ collection }) => {
   const seasonLabel = collection.season && collection.year ? `${collection.season} ${collection.year}` : null;
 
   return (
-    <div
+    <Link
+      to={`/collections/${collection.slug}`}
       className="fade-in relative overflow-hidden rounded-3xl border border-vividViolet/15 p-6 sm:p-8"
       style={{
         backgroundImage: `linear-gradient(160deg, rgba(255,255,255,.86), rgba(245,245,245,.9)), url(${collection.heroImage})`,
@@ -19,6 +22,7 @@ export const CollectionBanner = ({ collection }) => {
         {collection.pieces ? <span className="rounded-full bg-white/85 px-3 py-1">{collection.pieces} pieces</span> : null}
         <span className="rounded-full bg-white/85 px-3 py-1">{collection.isActive ? 'Live now' : 'Coming soon'}</span>
       </div>
-    </div>
+      <p className="mt-4 text-sm font-semibold text-vividViolet underline underline-offset-4">Open collection</p>
+    </Link>
   );
 };

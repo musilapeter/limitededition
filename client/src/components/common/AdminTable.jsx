@@ -1,6 +1,6 @@
 export const AdminTable = ({ headers, rows }) => {
   return (
-    <div className="glass-panel rounded-2xl p-4">
+    <div className="overflow-hidden rounded-2xl border border-black/10 bg-white p-4">
       <div className="space-y-3 md:hidden">
         {rows.map((row, idx) => (
           <div key={idx} className="rounded-xl border border-white/10 p-3">

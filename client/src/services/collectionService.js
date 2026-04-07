@@ -18,3 +18,12 @@ export const fetchAdminCollections = async () => {
     return mockCollections;
   }
 };
+
+export const fetchCollectionBySlug = async (slug) => {
+  try {
+    const { data } = await api.get(`/collections/${slug}`);
+    return data?.data ?? null;
+  } catch (_error) {
+    return mockCollections.find((item) => item.slug === slug) || null;
+  }
+};

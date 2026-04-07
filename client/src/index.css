@@ -13,12 +13,6 @@ body {
   color: #1f1f1f;
 }
 
-.glass-panel {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-}
-
 .pulse-section-light {
   background: #e6e6fa;
   color: #121212;

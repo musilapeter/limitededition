@@ -3,6 +3,7 @@ import { MainLayout } from '../../components/layout/MainLayout';
 import { RequireAuth } from '../../hooks/useRequireAuth';
 import { HomePage } from '../../pages/HomePage';
 import { CollectionsPage } from '../../pages/CollectionsPage';
+import { CollectionDetailsPage } from '../../pages/CollectionDetailsPage';
 import { ProductsPage } from '../../pages/ProductsPage';
 import { ProductDetailsPage } from '../../pages/ProductDetailsPage';
 import { CartPage } from '../../pages/CartPage';
@@ -21,6 +22,7 @@ export const router = createBrowserRouter(
       children: [
         { index: true, element: <HomePage /> },
         { path: 'collections', element: <CollectionsPage /> },
+        { path: 'collections/:slug', element: <CollectionDetailsPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'products/:slug', element: <ProductDetailsPage /> },
         { path: 'cart', element: <CartPage /> },

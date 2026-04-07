@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from '../common/Card';
 import { Button } from '../common/Button';
 import { StockBadge } from '../common/StockBadge';
 import { limitedMessage } from '../../utils/stock';
 import { upsertCartItem } from '../../services/cartService';
 
-export const ProductCard = ({ product }) => {
+export const ProductTile = ({ product }) => {
   const highlightVariant = product.variants[0];
   const [isAdding, setIsAdding] = useState(false);
-  const [addStatus, setAddStatus] = useState(null); // 'success' | 'error' | null
+  const [addStatus, setAddStatus] = useState(null);
 
   const handleAddToCart = async () => {
     if (!product.variants.length) {
@@ -19,7 +18,6 @@ export const ProductCard = ({ product }) => {
 
     setIsAdding(true);
     try {
-      // Create product snapshot for offline support
       const productSnapshot = {
         _id: product._id,
         name: product.name,
@@ -28,11 +26,8 @@ export const ProductCard = ({ product }) => {
         images: product.images,
       };
 
-      // Add first available variant
       await upsertCartItem(productSnapshot, product.variants[0]._id, 1);
       setAddStatus('success');
-
-      // Clear success message after 2 seconds
       setTimeout(() => setAddStatus(null), 2000);
     } catch (error) {
       console.error('Add to cart error:', error);
@@ -44,7 +39,7 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <Card className="overflow-hidden p-0">
+    <article className="overflow-hidden rounded-2xl border border-black/10 bg-white">
       <img
         src={product.images?.[0]}
         alt={product.name}
@@ -63,15 +58,11 @@ export const ProductCard = ({ product }) => {
           </p>
         )}
 
-        {/* Status Message */}
         {addStatus === 'success' && (
           <p className="text-xs font-semibold text-green-600">✓ Added to cart</p>
         )}
-        {addStatus === 'error' && (
-          <p className="text-xs font-semibold text-red-600">✗ Failed to add</p>
-        )}
+        {addStatus === 'error' && <p className="text-xs font-semibold text-red-600">✗ Failed to add</p>}
 
-        {/* Action Buttons */}
         <div className="flex gap-2">
           <Button
             onClick={handleAddToCart}
@@ -81,16 +72,13 @@ export const ProductCard = ({ product }) => {
           >
             {isAdding ? 'Adding...' : 'Add to Cart'}
           </Button>
-          <Link
-            to={`/products/${product.slug}`}
-            className="flex-1"
-          >
+          <Link to={`/products/${product.slug}`} className="flex-1">
             <Button variant="ghost" className="w-full">
               View
             </Button>
           </Link>
         </div>
       </div>
-    </Card>
+    </article>
   );
 };

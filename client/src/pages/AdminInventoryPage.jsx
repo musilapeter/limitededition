@@ -43,7 +43,7 @@ export const AdminInventoryPage = () => {
 
   return (
     <div className="space-y-6">
-      <div className="glass-panel rounded-2xl p-4">
+      <div className="rounded-2xl border border-black/10 bg-white p-4">
         <h2 className="mb-4 font-heading text-2xl sm:text-3xl">Inventory Management</h2>
         <form className="grid gap-3 md:grid-cols-5" onSubmit={handleSubmit((values) => mutation.mutate(values))}>
           <select className="w-full rounded-lg border border-black/10 bg-white p-2 text-ink" {...register('productId')}>

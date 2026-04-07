@@ -13,7 +13,7 @@ export const CollectionsPage = () => {
 
   return (
     <div className="space-y-6 fade-in">
-      <section className="glass-panel rounded-3xl p-5 sm:p-8">
+      <section className="rounded-3xl border border-black/10 bg-white p-5 sm:p-8">
         <p className="text-xs uppercase tracking-[0.35em] text-vividViolet">Editorial Curation</p>
         <h1 className="mt-2 font-heading text-3xl text-hotPink sm:text-4xl">Collections</h1>
         <p className="mt-3 max-w-3xl text-sm text-ink/85 sm:text-base">

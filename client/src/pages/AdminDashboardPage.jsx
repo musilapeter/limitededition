@@ -2,7 +2,6 @@ import { Link, Outlet } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { AdminSidebar } from '../components/layout/AdminSidebar';
 import { Loader } from '../components/common/Loader';
-import { Card } from '../components/common/Card';
 import { fetchInventorySummary } from '../services/inventoryService';
 import { fetchAdminCollections } from '../services/collectionService';
 import { fetchLowStockProducts } from '../services/productService';
@@ -30,27 +29,27 @@ export const AdminDashboardPage = () => {
 
       <div className="space-y-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card>
+          <section className="rounded-2xl border border-black/10 bg-white p-4">
             <p className="text-xs text-cyberTurquoise">Total Products</p>
             <h2 className="mt-2 text-3xl font-bold">{summary.totalProducts}</h2>
-          </Card>
-          <Card>
+          </section>
+          <section className="rounded-2xl border border-black/10 bg-white p-4">
             <p className="text-xs text-cyberTurquoise">Active Collections</p>
             <h2 className="mt-2 text-3xl font-bold">
               {collections.filter((item) => item.isActive).length}
             </h2>
-          </Card>
-          <Card>
+          </section>
+          <section className="rounded-2xl border border-black/10 bg-white p-4">
             <p className="text-xs text-cyberTurquoise">Low Stock Variants</p>
             <h2 className="mt-2 text-3xl font-bold text-hotPink">{summary.lowStockVariants}</h2>
-          </Card>
-          <Card>
+          </section>
+          <section className="rounded-2xl border border-black/10 bg-white p-4">
             <p className="text-xs text-cyberTurquoise">Out of Stock Variants</p>
             <h2 className="mt-2 text-3xl font-bold text-hotPink">{summary.outOfStockVariants}</h2>
-          </Card>
+          </section>
         </div>
 
-        <Card>
+        <section className="rounded-2xl border border-black/10 bg-white p-4">
           <div className="flex flex-wrap gap-3">
             <Link
               className="rounded-full border border-vividViolet/70 px-4 py-2 text-sm text-vividViolet"
@@ -71,19 +70,23 @@ export const AdminDashboardPage = () => {
               Manage Inventory
             </Link>
           </div>
-        </Card>
+        </section>
 
-        <Card>
+        <section className="rounded-2xl border border-black/10 bg-white p-4">
           <h3 className="mb-3 font-heading text-2xl text-electricLime">Low-Stock Alerts</h3>
           <div className="space-y-2 text-sm">
             {lowStockProducts.map((product) => (
-              <p key={product._id}>
+              <Link
+                key={product._id}
+                to={`/products/${product.slug}`}
+                className="block text-vividViolet underline underline-offset-4"
+              >
                 {product.name} has limited stock variants.
-              </p>
+              </Link>
             ))}
             {!lowStockProducts.length && <p className="text-cyberTurquoise">No low-stock alerts currently.</p>}
           </div>
-        </Card>
+        </section>
 
         <Outlet />
       </div>
