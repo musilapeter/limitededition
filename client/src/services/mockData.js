@@ -57,3 +57,60 @@ export const mockProducts = [
     ],
   },
 ];
+
+export const mockUsers = {
+  admin: {
+    id: 'mock-admin-1',
+    name: 'Demo Admin',
+    email: 'admin@limitededition.com',
+    role: 'admin',
+  },
+  customer: {
+    id: 'mock-customer-1',
+    name: 'Demo Customer',
+    email: 'customer@limitededition.com',
+    role: 'customer',
+  },
+};
+
+export const mockInventorySummary = {
+  totalProducts: mockProducts.length,
+  lowStockVariants: mockProducts
+    .flatMap((item) => item.variants)
+    .filter((variant) => variant.quantity > 0 && variant.quantity <= variant.lowStockThreshold).length,
+  outOfStockVariants: mockProducts
+    .flatMap((item) => item.variants)
+    .filter((variant) => variant.quantity <= 0).length,
+};
+
+export const mockInventoryLogs = [
+  {
+    _id: 'log-1',
+    sku: 'TDB-M-SAND',
+    action: 'reduce',
+    previousQuantity: 3,
+    quantityChange: -1,
+    newQuantity: 2,
+    reason: 'Demo sale',
+  },
+  {
+    _id: 'log-2',
+    sku: 'CET-L-STONE',
+    action: 'adjust',
+    previousQuantity: 2,
+    quantityChange: -1,
+    newQuantity: 1,
+    reason: 'Manual audit correction',
+  },
+];
+
+export const mockCart = {
+  user: 'mock-customer-1',
+  items: [
+    {
+      product: mockProducts[0],
+      variantId: 'v2',
+      quantity: 1,
+    },
+  ],
+};

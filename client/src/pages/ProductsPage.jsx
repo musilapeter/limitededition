@@ -29,11 +29,11 @@ export const ProductsPage = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="font-heading text-3xl sm:text-4xl">Style Browse</h1>
+      <h1 className="font-heading text-3xl text-electricLime sm:text-4xl">Style Browse</h1>
 
-      <div className="grid gap-3 rounded-2xl border border-white/10 p-4 md:grid-cols-5">
+      <div className="pulse-section-soft grid gap-3 rounded-2xl border border-vividViolet/30 p-4 md:grid-cols-5">
         <select
-          className="w-full rounded-lg bg-white/5 p-2"
+          className="w-full rounded-lg border border-vividViolet/25 bg-pearl p-2 text-ink"
           value={filters.category}
           onChange={(e) => setFilters((prev) => ({ ...prev, category: e.target.value }))}
         >
@@ -46,28 +46,28 @@ export const ProductsPage = () => {
         </select>
 
         <input
-          className="w-full rounded-lg bg-white/5 p-2"
+          className="w-full rounded-lg border border-vividViolet/25 bg-pearl p-2 text-ink"
           placeholder="Size (M)"
           value={filters.size}
           onChange={(e) => setFilters((prev) => ({ ...prev, size: e.target.value }))}
         />
 
         <input
-          className="w-full rounded-lg bg-white/5 p-2"
-          placeholder="Color (Sand)"
+          className="w-full rounded-lg border border-vividViolet/25 bg-pearl p-2 text-ink"
+          placeholder="Color (White)"
           value={filters.color}
           onChange={(e) => setFilters((prev) => ({ ...prev, color: e.target.value }))}
         />
 
         <input
-          className="w-full rounded-lg bg-white/5 p-2"
+          className="w-full rounded-lg border border-vividViolet/25 bg-pearl p-2 text-ink"
           placeholder="Tag (minimal)"
           value={filters.tags}
           onChange={(e) => setFilters((prev) => ({ ...prev, tags: e.target.value }))}
         />
 
         <select
-          className="w-full rounded-lg bg-white/5 p-2"
+          className="w-full rounded-lg border border-vividViolet/25 bg-pearl p-2 text-ink"
           value={filters.stock}
           onChange={(e) => setFilters((prev) => ({ ...prev, stock: e.target.value }))}
         >

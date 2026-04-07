@@ -11,6 +11,10 @@ export const fetchCollections = async () => {
 };
 
 export const fetchAdminCollections = async () => {
-  const { data } = await api.get('/collections/admin/all');
-  return data?.data ?? [];
+  try {
+    const { data } = await api.get('/collections/admin/all');
+    return data?.data ?? [];
+  } catch (_error) {
+    return mockCollections;
+  }
 };

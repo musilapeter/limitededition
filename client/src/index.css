@@ -3,20 +3,38 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
   margin: 0;
   font-family: 'Manrope', sans-serif;
-  background: #0a0b0f;
-  color: #f5f3ee;
+  background: #ffffff;
+  color: #1f1f1f;
 }
 
 .glass-panel {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.pulse-section-light {
+  background: #e6e6fa;
+  color: #121212;
+}
+
+.pulse-section-soft {
+  background: #f5f5f5;
+  color: #121212;
+}
+
+.pulse-title {
+  color: #f68b1e;
+}
+
+.pulse-subtitle {
+  color: #e67e00;
 }
 
 .fade-in {

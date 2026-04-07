@@ -23,11 +23,23 @@ export const fetchProductDetails = async (slug) => {
 };
 
 export const fetchLowStockProducts = async () => {
-  const { data } = await api.get('/products/low-stock');
-  return data?.data ?? [];
+  try {
+    const { data } = await api.get('/products/low-stock');
+    return data?.data ?? [];
+  } catch (_error) {
+    return mockProducts.filter((product) =>
+      product.variants.some(
+        (variant) => variant.quantity > 0 && variant.quantity <= variant.lowStockThreshold,
+      ),
+    );
+  }
 };
 
 export const fetchAdminProducts = async () => {
-  const { data } = await api.get('/products/admin/all');
-  return data?.data ?? [];
+  try {
+    const { data } = await api.get('/products/admin/all');
+    return data?.data ?? [];
+  } catch (_error) {
+    return mockProducts;
+  }
 };

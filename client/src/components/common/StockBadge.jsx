@@ -5,10 +5,10 @@ export const StockBadge = ({ variant }) => {
 
   const stateClass =
     state === 'In Stock'
-      ? 'bg-moss/20 text-moss'
+      ? 'bg-electricLime/20 text-electricLime'
       : state === 'Low Stock'
-        ? 'bg-rust/20 text-rust'
-        : 'bg-white/15 text-white/70';
+        ? 'bg-hotPink/20 text-hotPink'
+        : 'bg-vividViolet/20 text-vividViolet';
 
   return <span className={`rounded-full px-2.5 py-1 text-xs font-bold ${stateClass}`}>{state}</span>;
 };

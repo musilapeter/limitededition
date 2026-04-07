@@ -30,13 +30,13 @@ export const RegisterPage = () => {
 
   return (
     <div className="mx-auto max-w-md space-y-4 glass-panel rounded-2xl p-6">
-      <h1 className="font-heading text-3xl">Create Account</h1>
+      <h1 className="font-heading text-3xl text-electricLime">Create Account</h1>
       <form className="space-y-3" onSubmit={handleSubmit((values) => mutation.mutate(values))}>
         <input className="w-full rounded-lg bg-white/5 p-3" placeholder="Name" {...register('name')} />
-        {formState.errors.name && <p className="text-xs text-rust">{formState.errors.name.message}</p>}
+        {formState.errors.name && <p className="text-xs text-hotPink">{formState.errors.name.message}</p>}
 
         <input className="w-full rounded-lg bg-white/5 p-3" placeholder="Email" {...register('email')} />
-        {formState.errors.email && <p className="text-xs text-rust">{formState.errors.email.message}</p>}
+        {formState.errors.email && <p className="text-xs text-hotPink">{formState.errors.email.message}</p>}
 
         <input
           type="password"
@@ -45,7 +45,7 @@ export const RegisterPage = () => {
           {...register('password')}
         />
         {formState.errors.password && (
-          <p className="text-xs text-rust">{formState.errors.password.message}</p>
+          <p className="text-xs text-hotPink">{formState.errors.password.message}</p>
         )}
 
         <Button type="submit" className="w-full" disabled={mutation.isPending}>
@@ -57,9 +57,9 @@ export const RegisterPage = () => {
         <ErrorState message={mutation.error?.response?.data?.message || 'Registration failed'} />
       )}
 
-      <p className="text-sm text-pearl/75">
+      <p className="text-sm text-ink/70">
         Already have an account?{' '}
-        <Link className="text-sand underline" to="/login">
+        <Link className="text-cyberTurquoise underline" to="/login">
           Sign in
         </Link>
       </p>

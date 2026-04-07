@@ -32,14 +32,14 @@ export const ProductDetailsPage = () => {
       />
 
       <div className="space-y-4">
-        <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl">{product.name}</h1>
-        <p className="text-pearl/75">{product.description}</p>
-        <p className="text-2xl font-bold text-sand">${product.price}</p>
+        <h1 className="font-heading text-3xl text-electricLime sm:text-4xl lg:text-5xl">{product.name}</h1>
+        <p className="text-ink/80">{product.description}</p>
+        <p className="text-2xl font-bold text-hotPink">${product.price}</p>
 
         <div className="space-y-2">
-          <label className="text-sm uppercase tracking-widest text-pearl/70">Choose variant</label>
+          <label className="text-sm uppercase tracking-widest text-cyberTurquoise">Choose variant</label>
           <select
-            className="w-full rounded-lg bg-white/5 p-3"
+            className="w-full rounded-lg border border-vividViolet/35 bg-white p-3 text-ink"
             value={selected?._id}
             onChange={(e) => setVariantId(e.target.value)}
           >
@@ -54,7 +54,7 @@ export const ProductDetailsPage = () => {
         {selected && (
           <div className="flex items-center gap-3">
             <StockBadge variant={selected} />
-            {limitedMessage(selected) && <span className="text-rust">{limitedMessage(selected)}</span>}
+            {limitedMessage(selected) && <span className="text-hotPink">{limitedMessage(selected)}</span>}
           </div>
         )}
 

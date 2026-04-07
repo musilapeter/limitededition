@@ -18,14 +18,17 @@ export const ProductCard = ({ product }) => {
           <h3 className="font-heading text-xl">{product.name}</h3>
           {highlightVariant && <StockBadge variant={highlightVariant} />}
         </div>
-        <p className="text-sm text-pearl/75">{product.shortDescription}</p>
-        <p className="text-lg font-bold text-sand">${product.price}</p>
+        <p className="text-sm text-ink/80">{product.shortDescription}</p>
+        <p className="text-lg font-bold text-electricLime">${product.price}</p>
         {highlightVariant && limitedMessage(highlightVariant) && (
-          <p className="text-xs font-semibold uppercase tracking-wide text-rust">
+          <p className="text-xs font-semibold uppercase tracking-wide text-hotPink">
             {limitedMessage(highlightVariant)}
           </p>
         )}
-        <Link to={`/products/${product.slug}`} className="text-sm text-pearl underline underline-offset-4">
+        <Link
+          to={`/products/${product.slug}`}
+          className="text-sm text-cyberTurquoise underline underline-offset-4"
+        >
           View Piece
         </Link>
       </div>

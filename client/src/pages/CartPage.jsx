@@ -25,7 +25,7 @@ export const CartPage = () => {
 
   return (
     <div className="space-y-4">
-      <h1 className="font-heading text-3xl sm:text-4xl">Cart</h1>
+      <h1 className="font-heading text-3xl text-electricLime sm:text-4xl">Cart</h1>
       {items.map((item) => (
         <div
           key={`${item.product._id}-${item.variantId}`}
@@ -33,7 +33,7 @@ export const CartPage = () => {
         >
           <div>
             <p className="font-semibold">{item.product.name}</p>
-            <p className="text-sm text-pearl/70">Qty: {item.quantity}</p>
+            <p className="text-sm text-cyberTurquoise">Qty: {item.quantity}</p>
           </div>
           <div className="flex w-full flex-wrap gap-2 sm:w-auto sm:flex-nowrap">
             <Button

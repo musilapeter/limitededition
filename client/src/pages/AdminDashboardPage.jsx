@@ -31,51 +31,57 @@ export const AdminDashboardPage = () => {
       <div className="space-y-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Card>
-            <p className="text-xs text-pearl/70">Total Products</p>
+            <p className="text-xs text-cyberTurquoise">Total Products</p>
             <h2 className="mt-2 text-3xl font-bold">{summary.totalProducts}</h2>
           </Card>
           <Card>
-            <p className="text-xs text-pearl/70">Active Collections</p>
+            <p className="text-xs text-cyberTurquoise">Active Collections</p>
             <h2 className="mt-2 text-3xl font-bold">
               {collections.filter((item) => item.isActive).length}
             </h2>
           </Card>
           <Card>
-            <p className="text-xs text-pearl/70">Low Stock Variants</p>
-            <h2 className="mt-2 text-3xl font-bold text-rust">{summary.lowStockVariants}</h2>
+            <p className="text-xs text-cyberTurquoise">Low Stock Variants</p>
+            <h2 className="mt-2 text-3xl font-bold text-hotPink">{summary.lowStockVariants}</h2>
           </Card>
           <Card>
-            <p className="text-xs text-pearl/70">Out of Stock Variants</p>
-            <h2 className="mt-2 text-3xl font-bold text-rust">{summary.outOfStockVariants}</h2>
+            <p className="text-xs text-cyberTurquoise">Out of Stock Variants</p>
+            <h2 className="mt-2 text-3xl font-bold text-hotPink">{summary.outOfStockVariants}</h2>
           </Card>
         </div>
 
         <Card>
           <div className="flex flex-wrap gap-3">
-            <Link className="rounded-full border border-white/20 px-4 py-2 text-sm" to="/admin/products">
+            <Link
+              className="rounded-full border border-vividViolet/70 px-4 py-2 text-sm text-vividViolet"
+              to="/admin/products"
+            >
               Manage Products
             </Link>
             <Link
-              className="rounded-full border border-white/20 px-4 py-2 text-sm"
+              className="rounded-full border border-vividViolet/70 px-4 py-2 text-sm text-vividViolet"
               to="/admin/collections"
             >
               Manage Collections
             </Link>
-            <Link className="rounded-full border border-white/20 px-4 py-2 text-sm" to="/admin/inventory">
+            <Link
+              className="rounded-full border border-vividViolet/70 px-4 py-2 text-sm text-vividViolet"
+              to="/admin/inventory"
+            >
               Manage Inventory
             </Link>
           </div>
         </Card>
 
         <Card>
-          <h3 className="mb-3 font-heading text-2xl">Low-Stock Alerts</h3>
+          <h3 className="mb-3 font-heading text-2xl text-electricLime">Low-Stock Alerts</h3>
           <div className="space-y-2 text-sm">
             {lowStockProducts.map((product) => (
               <p key={product._id}>
                 {product.name} has limited stock variants.
               </p>
             ))}
-            {!lowStockProducts.length && <p className="text-pearl/70">No low-stock alerts currently.</p>}
+            {!lowStockProducts.length && <p className="text-cyberTurquoise">No low-stock alerts currently.</p>}
           </div>
         </Card>
 

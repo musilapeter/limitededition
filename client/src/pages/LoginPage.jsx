@@ -30,10 +30,10 @@ export const LoginPage = () => {
 
   return (
     <div className="mx-auto max-w-md space-y-4 glass-panel rounded-2xl p-6">
-      <h1 className="font-heading text-3xl">Sign In</h1>
+      <h1 className="font-heading text-3xl text-electricLime">Sign In</h1>
       <form className="space-y-3" onSubmit={handleSubmit((values) => mutation.mutate(values))}>
         <input className="w-full rounded-lg bg-white/5 p-3" placeholder="Email" {...register('email')} />
-        {formState.errors.email && <p className="text-xs text-rust">{formState.errors.email.message}</p>}
+        {formState.errors.email && <p className="text-xs text-hotPink">{formState.errors.email.message}</p>}
 
         <input
           type="password"
@@ -42,7 +42,7 @@ export const LoginPage = () => {
           {...register('password')}
         />
         {formState.errors.password && (
-          <p className="text-xs text-rust">{formState.errors.password.message}</p>
+          <p className="text-xs text-hotPink">{formState.errors.password.message}</p>
         )}
 
         <Button type="submit" className="w-full" disabled={mutation.isPending}>
@@ -54,9 +54,9 @@ export const LoginPage = () => {
         <ErrorState message={mutation.error?.response?.data?.message || 'Login failed'} />
       )}
 
-      <p className="text-sm text-pearl/75">
+      <p className="text-sm text-ink/70">
         New here?{' '}
-        <Link className="text-sand underline" to="/register">
+        <Link className="text-cyberTurquoise underline" to="/register">
           Create account
         </Link>
       </p>

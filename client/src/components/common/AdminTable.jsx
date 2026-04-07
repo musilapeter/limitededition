@@ -6,7 +6,7 @@ export const AdminTable = ({ headers, rows }) => {
           <div key={idx} className="rounded-xl border border-white/10 p-3">
             {row.map((cell, index) => (
               <div key={index} className="flex items-start justify-between gap-3 py-1.5 text-sm">
-                <span className="text-pearl/60">{headers[index]}</span>
+                <span className="text-ink/60">{headers[index]}</span>
                 <span className="text-right">{cell}</span>
               </div>
             ))}
@@ -19,7 +19,7 @@ export const AdminTable = ({ headers, rows }) => {
           <thead>
             <tr>
               {headers.map((header) => (
-                <th key={header} className="py-2 text-pearl/70">
+                <th key={header} className="py-2 text-ink/70">
                   {header}
                 </th>
               ))}

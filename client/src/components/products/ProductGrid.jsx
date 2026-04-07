@@ -3,7 +3,7 @@ import { ProductCard } from './ProductCard';
 export const ProductGrid = ({ products }) => {
   if (!products?.length) {
     return (
-      <div className="glass-panel rounded-2xl p-8 text-center text-pearl/70">
+      <div className="glass-panel rounded-2xl p-8 text-center text-ink/70">
         No products match this style filter.
       </div>
     );

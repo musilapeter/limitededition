@@ -8,9 +8,9 @@ export const CollectionBanner = ({ collection }) => {
         backgroundPosition: 'center',
       }}
     >
-      <p className="text-xs uppercase tracking-[0.25em] text-sand">Collection</p>
-      <h2 className="mt-2 max-w-xl font-heading text-3xl md:text-5xl">{collection.name}</h2>
-      <p className="mt-3 max-w-lg text-sm text-pearl/85">{collection.description}</p>
+      <p className="text-xs uppercase tracking-[0.25em] text-electricLime">Collection</p>
+      <h2 className="mt-2 max-w-xl font-heading text-3xl text-hotPink md:text-5xl">{collection.name}</h2>
+      <p className="mt-3 max-w-lg text-sm text-pearl/95">{collection.description}</p>
     </div>
   );
 };
