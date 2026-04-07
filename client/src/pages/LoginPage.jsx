@@ -1,0 +1,65 @@
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/authService';
+import { useAuthStore } from '../app/store/authStore';
+import { Button } from '../components/common/Button';
+import { ErrorState } from '../components/common/ErrorState';
+
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+export const LoginPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const setAuth = useAuthStore((state) => state.setAuth);
+
+  const { register, handleSubmit, formState } = useForm({ resolver: zodResolver(schema) });
+
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      setAuth(data);
+      navigate(location.state?.from?.pathname || '/');
+    },
+  });
+
+  return (
+    <div className="mx-auto max-w-md space-y-4 glass-panel rounded-2xl p-6">
+      <h1 className="font-heading text-3xl">Sign In</h1>
+      <form className="space-y-3" onSubmit={handleSubmit((values) => mutation.mutate(values))}>
+        <input className="w-full rounded-lg bg-white/5 p-3" placeholder="Email" {...register('email')} />
+        {formState.errors.email && <p className="text-xs text-rust">{formState.errors.email.message}</p>}
+
+        <input
+          type="password"
+          className="w-full rounded-lg bg-white/5 p-3"
+          placeholder="Password"
+          {...register('password')}
+        />
+        {formState.errors.password && (
+          <p className="text-xs text-rust">{formState.errors.password.message}</p>
+        )}
+
+        <Button type="submit" className="w-full" disabled={mutation.isPending}>
+          {mutation.isPending ? 'Signing in...' : 'Sign In'}
+        </Button>
+      </form>
+
+      {mutation.isError && (
+        <ErrorState message={mutation.error?.response?.data?.message || 'Login failed'} />
+      )}
+
+      <p className="text-sm text-pearl/75">
+        New here?{' '}
+        <Link className="text-sand underline" to="/register">
+          Create account
+        </Link>
+      </p>
+    </div>
+  );
+};
