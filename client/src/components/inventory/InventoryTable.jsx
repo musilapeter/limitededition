@@ -3,8 +3,40 @@ import { Card } from '../common/Card';
 export const InventoryTable = ({ logs }) => {
   return (
     <Card>
-      <h3 className="mb-3 font-heading text-2xl">Inventory Movement Log</h3>
-      <div className="overflow-x-auto">
+      <h3 className="mb-3 font-heading text-xl sm:text-2xl">Inventory Movement Log</h3>
+
+      <div className="space-y-3 md:hidden">
+        {logs?.map((log) => (
+          <div key={log._id} className="rounded-xl border border-white/10 p-3 text-sm">
+            <div className="flex items-start justify-between py-1">
+              <span className="text-pearl/60">SKU</span>
+              <span>{log.sku}</span>
+            </div>
+            <div className="flex items-start justify-between py-1">
+              <span className="text-pearl/60">Action</span>
+              <span className="uppercase">{log.action}</span>
+            </div>
+            <div className="flex items-start justify-between py-1">
+              <span className="text-pearl/60">Previous</span>
+              <span>{log.previousQuantity}</span>
+            </div>
+            <div className="flex items-start justify-between py-1">
+              <span className="text-pearl/60">Change</span>
+              <span>{log.quantityChange}</span>
+            </div>
+            <div className="flex items-start justify-between py-1">
+              <span className="text-pearl/60">New</span>
+              <span>{log.newQuantity}</span>
+            </div>
+            <div className="flex items-start justify-between py-1">
+              <span className="text-pearl/60">Reason</span>
+              <span className="text-right">{log.reason || '-'}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="hidden overflow-x-auto md:block">
         <table className="min-w-full text-left text-sm">
           <thead className="text-pearl/70">
             <tr>

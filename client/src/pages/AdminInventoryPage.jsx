@@ -44,9 +44,9 @@ export const AdminInventoryPage = () => {
   return (
     <div className="space-y-6">
       <div className="glass-panel rounded-2xl p-4">
-        <h2 className="mb-4 font-heading text-3xl">Inventory Management</h2>
+        <h2 className="mb-4 font-heading text-2xl sm:text-3xl">Inventory Management</h2>
         <form className="grid gap-3 md:grid-cols-5" onSubmit={handleSubmit((values) => mutation.mutate(values))}>
-          <select className="rounded-lg bg-white/5 p-2" {...register('productId')}>
+          <select className="w-full rounded-lg bg-white/5 p-2" {...register('productId')}>
             <option value="">Product</option>
             {productsQuery.data.map((product) => (
               <option key={product._id} value={product._id}>
@@ -55,7 +55,7 @@ export const AdminInventoryPage = () => {
             ))}
           </select>
 
-          <select className="rounded-lg bg-white/5 p-2" {...register('variantId')}>
+          <select className="w-full rounded-lg bg-white/5 p-2" {...register('variantId')}>
             <option value="">Variant</option>
             {selectedProduct?.variants.map((variant) => (
               <option key={variant._id} value={variant._id}>
@@ -64,14 +64,14 @@ export const AdminInventoryPage = () => {
             ))}
           </select>
 
-          <select className="rounded-lg bg-white/5 p-2" {...register('action')}>
+          <select className="w-full rounded-lg bg-white/5 p-2" {...register('action')}>
             <option value="add">Add</option>
             <option value="reduce">Reduce</option>
             <option value="adjust">Adjust</option>
           </select>
 
-          <input type="number" className="rounded-lg bg-white/5 p-2" {...register('quantity')} />
-          <Button type="submit" disabled={mutation.isPending}>
+          <input type="number" className="w-full rounded-lg bg-white/5 p-2" {...register('quantity')} />
+          <Button type="submit" className="w-full" disabled={mutation.isPending}>
             {mutation.isPending ? 'Saving...' : 'Apply'}
           </Button>
 

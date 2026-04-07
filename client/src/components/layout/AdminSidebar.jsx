@@ -11,9 +11,13 @@ export const AdminSidebar = () => {
   return (
     <aside className="glass-panel h-fit rounded-2xl p-4">
       <h3 className="mb-4 font-heading text-lg">Control Studio</h3>
-      <div className="flex flex-col gap-2 text-sm">
+      <div className="flex gap-2 overflow-x-auto pb-1 text-sm lg:flex-col lg:overflow-visible">
         {links.map((link) => (
-          <NavLink key={link.to} to={link.to} className="rounded-lg px-3 py-2 hover:bg-white/10">
+          <NavLink
+            key={link.to}
+            to={link.to}
+            className="whitespace-nowrap rounded-lg border border-white/10 px-3 py-2 hover:bg-white/10 lg:border-transparent"
+          >
             {link.label}
           </NavLink>
         ))}

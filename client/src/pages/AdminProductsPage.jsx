@@ -17,7 +17,7 @@ export const AdminProductsPage = () => {
 
   return (
     <div className="space-y-3">
-      <h2 className="font-heading text-3xl">Product Management</h2>
+      <h2 className="font-heading text-2xl sm:text-3xl">Product Management</h2>
       <AdminTable headers={['Name', 'Category', 'Price', 'State', 'Variants']} rows={rows} />
     </div>
   );
