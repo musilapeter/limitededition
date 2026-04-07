@@ -1,16 +1,16 @@
 export const CollectionBanner = ({ collection }) => {
   return (
     <div
-      className="fade-in relative overflow-hidden rounded-3xl border border-white/10 p-8"
+      className="fade-in relative overflow-hidden rounded-3xl border border-vividViolet/15 p-8"
       style={{
-        backgroundImage: `linear-gradient(160deg, rgba(10,11,15,.55), rgba(10,11,15,.82)), url(${collection.heroImage})`,
+        backgroundImage: `linear-gradient(160deg, rgba(255,255,255,.78), rgba(245,245,245,.86)), url(${collection.heroImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
       <p className="text-xs uppercase tracking-[0.25em] text-electricLime">Collection</p>
       <h2 className="mt-2 max-w-xl font-heading text-3xl text-hotPink md:text-5xl">{collection.name}</h2>
-      <p className="mt-3 max-w-lg text-sm text-pearl/95">{collection.description}</p>
+      <p className="mt-3 max-w-lg text-sm text-ink/85">{collection.description}</p>
     </div>
   );
 };

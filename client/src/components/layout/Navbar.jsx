@@ -9,7 +9,7 @@ export const Navbar = () => {
   const logout = useAuthStore((state) => state.logout);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-hotPink/35 bg-ink/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-vividViolet/25 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <Link to="/" className="font-heading text-2xl text-electricLime">
           LimitedEdition
@@ -24,7 +24,7 @@ export const Navbar = () => {
         </button>
 
         <nav
-          className={`w-full flex-col items-center gap-5 text-sm text-white md:flex md:w-auto md:flex-row ${open ? 'flex' : 'hidden'}`}
+          className={`w-full flex-col items-center gap-5 text-sm text-ink md:flex md:w-auto md:flex-row ${open ? 'flex' : 'hidden'}`}
         >
           <NavLink to="/collections">Collections</NavLink>
           <NavLink to="/products">Products</NavLink>

@@ -30,7 +30,7 @@ export const HomePage = () => {
         </p>
         <Link
           to="/products"
-          className="mt-6 inline-block rounded-full bg-vividViolet px-6 py-3 text-sm font-bold text-pearl"
+          className="mt-6 inline-block rounded-full bg-vividViolet px-6 py-3 text-sm font-bold text-white"
         >
           Explore Pieces
         </Link>

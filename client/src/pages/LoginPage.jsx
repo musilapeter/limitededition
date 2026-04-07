@@ -32,12 +32,16 @@ export const LoginPage = () => {
     <div className="mx-auto max-w-md space-y-4 glass-panel rounded-2xl p-6">
       <h1 className="font-heading text-3xl text-electricLime">Sign In</h1>
       <form className="space-y-3" onSubmit={handleSubmit((values) => mutation.mutate(values))}>
-        <input className="w-full rounded-lg bg-white/5 p-3" placeholder="Email" {...register('email')} />
+        <input
+          className="w-full rounded-lg border border-black/10 bg-white p-3 text-ink"
+          placeholder="Email"
+          {...register('email')}
+        />
         {formState.errors.email && <p className="text-xs text-hotPink">{formState.errors.email.message}</p>}
 
         <input
           type="password"
-          className="w-full rounded-lg bg-white/5 p-3"
+          className="w-full rounded-lg border border-black/10 bg-white p-3 text-ink"
           placeholder="Password"
           {...register('password')}
         />
