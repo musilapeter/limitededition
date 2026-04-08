@@ -7,6 +7,7 @@ import { CollectionDetailsPage } from '../../pages/CollectionDetailsPage';
 import { ProductsPage } from '../../pages/ProductsPage';
 import { ProductDetailsPage } from '../../pages/ProductDetailsPage';
 import { CartPage } from '../../pages/CartPage';
+import { CheckoutPage } from '../../pages/CheckoutPage';
 import { LoginPage } from '../../pages/LoginPage';
 import { RegisterPage } from '../../pages/RegisterPage';
 import { AdminDashboardPage } from '../../pages/AdminDashboardPage';
@@ -26,6 +27,14 @@ export const router = createBrowserRouter(
         { path: 'products', element: <ProductsPage /> },
         { path: 'products/:slug', element: <ProductDetailsPage /> },
         { path: 'cart', element: <CartPage /> },
+        {
+          path: 'checkout',
+          element: (
+            <RequireAuth>
+              <CheckoutPage />
+            </RequireAuth>
+          ),
+        },
         { path: 'login', element: <LoginPage /> },
         { path: 'register', element: <RegisterPage /> },
         {

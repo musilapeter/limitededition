@@ -111,3 +111,23 @@ export const removeCartItem = async (payload) => {
     return localCart;
   }
 };
+
+export const clearCart = async () => {
+  const cart = await fetchCart();
+  const items = cart?.items || [];
+
+  if (!items.length) {
+    return cart;
+  }
+
+  let latest = cart;
+  for (const item of items) {
+    latest = await removeCartItem({
+      productId: item.product._id,
+      variantId: item.variantId,
+    });
+  }
+
+  return latest;
+};
+

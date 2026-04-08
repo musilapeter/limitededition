@@ -1,15 +1,22 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuthStore } from '../../app/store/authStore';
 import { Button } from '../common/Button';
+import { fetchCart } from '../../services/cartService';
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
   const guestAvatarSrc = '/uploads/avatar-placeholder.png';
+  const cartQuery = useQuery({ queryKey: ['cart'], queryFn: fetchCart });
 
   const avatarLabel = user?.email?.[0]?.toUpperCase() || 'U';
+  const itemCount = (cartQuery.data?.items || []).reduce(
+    (sum, item) => sum + Number(item?.quantity || 0),
+    0,
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-vividViolet/25 bg-white/95 backdrop-blur">
@@ -84,7 +91,14 @@ export const Navbar = () => {
         >
           <NavLink to="/collections" onClick={() => setOpen(false)}>Collections</NavLink>
           <NavLink to="/products" onClick={() => setOpen(false)}>Products</NavLink>
-          <NavLink to="/cart" onClick={() => setOpen(false)}>Cart</NavLink>
+          <NavLink to="/cart" onClick={() => setOpen(false)} className="relative pr-6">
+            Cart
+            {itemCount > 0 && (
+              <span className="absolute -right-1 -top-1 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-hotPink px-1 text-[10px] font-bold text-white">
+                {itemCount}
+              </span>
+            )}
+          </NavLink>
           {user?.role === 'admin' && <NavLink to="/admin" onClick={() => setOpen(false)}>Admin</NavLink>}
           {user && (
             <button type="button" onClick={logout} className="text-cyberTurquoise md:hidden">

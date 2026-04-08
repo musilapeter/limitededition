@@ -176,8 +176,7 @@ export const CartPage = () => {
               return;
             }
 
-            // Placeholder until checkout page is implemented.
-            window.alert('Checkout flow is next. You are signed in and ready to proceed.');
+            navigate('/checkout');
           }}
         >
           {user ? 'Proceed to Checkout' : 'Sign In to Checkout'}
