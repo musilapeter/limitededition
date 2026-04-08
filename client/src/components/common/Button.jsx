@@ -2,9 +2,9 @@ import { cn } from '../../utils/cn';
 
 export const Button = ({ className, children, variant = 'primary', ...props }) => {
   const styles = {
-    primary: 'bg-vividViolet text-white hover:brightness-105',
-    secondary: 'bg-cyberTurquoise text-ink hover:brightness-95',
-    ghost: 'bg-transparent border border-cyberTurquoise/50 text-cyberTurquoise hover:bg-cyberTurquoise/10',
+    primary: 'bg-[#2b8a3e] text-white hover:brightness-105',
+    secondary: 'bg-[#3f9b54] text-white hover:brightness-95',
+    ghost: 'bg-transparent border border-[#2b8a3e]/60 text-[#2b8a3e] hover:bg-[#2b8a3e]/10',
   };
 
   return (

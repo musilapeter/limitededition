@@ -54,7 +54,7 @@ export const Navbar = () => {
               <button
                 type="button"
                 onClick={() => setIsMenuOpen((prev) => !prev)}
-                className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:border-black/30 hover:text-ink"
+                className="inline-flex items-center gap-3 rounded-full border border-[#2b8a3e] bg-[#2b8a3e] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-110"
                 aria-expanded={isMenuOpen}
                 aria-label="Open navigation menu"
               >
@@ -97,7 +97,7 @@ export const Navbar = () => {
               <button
                 type="submit"
                 aria-label="Search"
-                className="inline-flex h-12 w-14 items-center justify-center rounded-r-md bg-[#f68b1e] text-white"
+                className="inline-flex h-12 w-14 items-center justify-center rounded-r-md bg-[#2b8a3e] text-white"
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="11" cy="11" r="7" />
