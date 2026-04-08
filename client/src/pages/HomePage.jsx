@@ -34,9 +34,6 @@ export const HomePage = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
 
-  if (collectionsQuery.isLoading || featuredQuery.isLoading) return <Loader text="Curating the runway..." />;
-  if (collectionsQuery.isError || featuredQuery.isError) return <ErrorState message="Failed to load storefront" />;
-
   const heroSlides = useMemo(() => {
     const collectionSlides = (collectionsQuery.data || []).map((collection) => ({
       id: `collection-${collection._id}`,
@@ -71,6 +68,9 @@ export const HomePage = () => {
 
   const safeActiveIndex = heroSlides.length ? activeSlide % heroSlides.length : 0;
   const currentSlide = heroSlides[safeActiveIndex];
+
+  if (collectionsQuery.isLoading || featuredQuery.isLoading) return <Loader text="Curating the runway..." />;
+  if (collectionsQuery.isError || featuredQuery.isError) return <ErrorState message="Failed to load storefront" />;
 
   return (
     <div className="space-y-10 fade-in">
