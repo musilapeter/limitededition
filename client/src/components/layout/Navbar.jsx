@@ -33,8 +33,12 @@ export const Navbar = () => {
             <span className="mt-1 block h-0.5 w-5 bg-current" />
           </button>
 
-          <Link to="/" className="justify-self-center font-heading text-2xl text-electricLime md:justify-self-auto">
-            LimitedEdition
+          <Link
+            to="/"
+            className="justify-self-center font-heading text-2xl tracking-wider text-electricLime md:justify-self-auto"
+            aria-label="L$E home"
+          >
+            L$E
           </Link>
 
           <div className="flex items-center justify-self-end gap-2">
