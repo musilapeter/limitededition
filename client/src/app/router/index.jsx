@@ -8,6 +8,9 @@ import { ProductsPage } from '../../pages/ProductsPage';
 import { ProductDetailsPage } from '../../pages/ProductDetailsPage';
 import { CartPage } from '../../pages/CartPage';
 import { CheckoutPage } from '../../pages/CheckoutPage';
+import { HeroCategoryPage } from '../../pages/HeroCategoryPage';
+import { WhatsNewPage } from '../../pages/WhatsNewPage';
+import { FlashSalePage } from '../../pages/FlashSalePage';
 import { LoginPage } from '../../pages/LoginPage';
 import { RegisterPage } from '../../pages/RegisterPage';
 import { AdminDashboardPage } from '../../pages/AdminDashboardPage';
@@ -26,6 +29,9 @@ export const router = createBrowserRouter(
         { path: 'collections/:slug', element: <CollectionDetailsPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'products/:slug', element: <ProductDetailsPage /> },
+        { path: 'hero/category/:categorySlug', element: <HeroCategoryPage /> },
+        { path: 'hero/whats-new', element: <WhatsNewPage /> },
+        { path: 'hero/flash-sale', element: <FlashSalePage /> },
         { path: 'cart', element: <CartPage /> },
         {
           path: 'checkout',

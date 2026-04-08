@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { CollectionBanner } from '../components/collections/CollectionBanner';
@@ -9,19 +10,19 @@ import { fetchProducts } from '../services/productService';
 import { formatKsh } from '../utils/currency';
 
 const categoryLinks = [
-  'Kili Featured',
-  'TV, Audio & Video',
-  'Shoes',
-  'Phones & Accessories',
-  'Home & Kitchen',
-  'Health & Beauty',
-  'Appliances',
-  'Bags',
-  'Computers & Accessories',
-  'Clothes',
-  'Watches & Jewellery',
-  'Kids & Baby Products',
-  'Automotive',
+  { label: 'Women Clothing', to: '/hero/category/women-clothing' },
+  { label: 'Men Clothing', to: '/hero/category/men-clothing' },
+  { label: 'Unisex Clothing', to: '/hero/category/unisex-clothing' },
+  { label: 'Outerwear', to: '/hero/category/outerwear' },
+  { label: 'Tops', to: '/hero/category/tops' },
+  { label: 'Bottoms', to: '/hero/category/bottoms' },
+  { label: 'Dresses', to: '/hero/category/dresses' },
+  { label: 'Sportswear', to: '/hero/category/sportswear' },
+  { label: 'Kids Clothing', to: '/hero/category/kids-clothing' },
+  { label: 'Shoes', to: '/hero/category/shoes' },
+  { label: 'Sneakers', to: '/hero/category/sneakers' },
+  { label: 'Formal Shoes', to: '/hero/category/formal-shoes' },
+  { label: 'Boots', to: '/hero/category/boots' },
 ];
 
 export const HomePage = () => {
@@ -30,11 +31,45 @@ export const HomePage = () => {
     queryKey: ['featured-products'],
     queryFn: () => fetchProducts({ featured: true }),
   });
+  const [activeSlide, setActiveSlide] = useState(0);
 
   if (collectionsQuery.isLoading || featuredQuery.isLoading) return <Loader text="Curating the runway..." />;
   if (collectionsQuery.isError || featuredQuery.isError) return <ErrorState message="Failed to load storefront" />;
 
-  const heroProducts = (featuredQuery.data || []).slice(0, 2);
+  const heroSlides = useMemo(() => {
+    const collectionSlides = (collectionsQuery.data || []).map((collection) => ({
+      id: `collection-${collection._id}`,
+      title: collection.name,
+      subtitle: `${collection.season || 'Season'} ${collection.year || ''}`.trim(),
+      cta: 'Shop Collection',
+      ctaTo: `/collections/${collection.slug}`,
+      image: collection.heroImage,
+    }));
+
+    const productSlides = (featuredQuery.data || []).map((product) => ({
+      id: `product-${product._id}`,
+      title: product.name,
+      subtitle: `${product.shortDescription || product.category} - ${formatKsh(product.price)}`,
+      cta: 'Shop Product',
+      ctaTo: `/products/${product.slug}`,
+      image: product.images?.[0],
+    }));
+
+    return [...collectionSlides, ...productSlides].filter((slide) => slide.image).slice(0, 8);
+  }, [collectionsQuery.data, featuredQuery.data]);
+
+  useEffect(() => {
+    if (heroSlides.length <= 1) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4500);
+
+    return () => window.clearInterval(timer);
+  }, [heroSlides.length]);
+
+  const safeActiveIndex = heroSlides.length ? activeSlide % heroSlides.length : 0;
+  const currentSlide = heroSlides[safeActiveIndex];
 
   return (
     <div className="space-y-10 fade-in">
@@ -49,8 +84,12 @@ export const HomePage = () => {
             <span aria-hidden="true">▾</span>
           </button>
           <div className="flex items-center gap-8 px-4 py-3 md:px-6">
-            <button type="button">What's New</button>
-            <button type="button">Flash Sale</button>
+            <Link to="/hero/whats-new" className="transition hover:text-vividViolet">
+              What's New
+            </Link>
+            <Link to="/hero/flash-sale" className="transition hover:text-vividViolet">
+              Flash Sale
+            </Link>
           </div>
         </div>
 
@@ -58,9 +97,11 @@ export const HomePage = () => {
           <aside className="hidden border-r border-black/10 bg-[#f6f6f6] md:block">
             <ul>
               {categoryLinks.map((item) => (
-                <li key={item} className="flex items-center justify-between border-b border-black/5 px-4 py-3 text-[15px]">
-                  <span>{item}</span>
-                  <span className="text-ink/50">›</span>
+                <li key={item.label} className="border-b border-black/5 text-[15px]">
+                  <Link to={item.to} className="flex items-center justify-between px-4 py-3 transition hover:bg-white hover:text-vividViolet">
+                    <span>{item.label}</span>
+                    <span className="text-ink/50">›</span>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -72,42 +113,65 @@ export const HomePage = () => {
               <span className="text-sm font-semibold opacity-90">Fast Delivery /// Fast Delivery /// Fast Delivery</span>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr] lg:items-end">
-              <div className="space-y-3 pb-2">
-                <h1 className="font-heading text-4xl font-extrabold leading-tight text-black drop-shadow-sm sm:text-6xl">
-                  Women's
-                  <br />
-                  Fashion Sale
-                </h1>
-                <p className="inline-block rounded-md bg-black px-4 py-2 text-lg font-semibold text-white sm:text-2xl">
-                  Trend Now, Wear in 7
-                </p>
-                <div>
-                  <Link
-                    to="/products"
-                    className="inline-flex rounded-full bg-[#e3343a] px-6 py-2.5 text-sm font-bold text-white"
-                  >
-                    Shop Now
-                  </Link>
-                </div>
-              </div>
+            <div className="relative min-h-[360px] overflow-hidden rounded-lg border border-white/40 bg-black/15 sm:min-h-[420px]">
+              {currentSlide ? (
+                <>
+                  <img
+                    key={currentSlide.id}
+                    src={currentSlide.image}
+                    alt={currentSlide.title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/35 to-transparent" />
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                {heroProducts.map((product) => (
-                  <article key={product._id} className="rounded-md border border-white/40 bg-white/95 p-2 shadow-sm">
-                    <h3 className="mb-2 line-clamp-1 px-1 text-center font-semibold text-ink">{product.name}</h3>
-                    <img
-                      src={product.images?.[0]}
-                      alt={product.name}
-                      className="h-44 w-full rounded object-cover"
-                    />
-                    <div className="mt-2 flex items-center justify-between rounded bg-[#fff200] px-2 py-1.5 font-bold text-black">
-                      <span className="text-xs text-ink/50 line-through">{formatKsh(Number(product.price) * 1.8)}</span>
-                      <span className="text-2xl">{formatKsh(product.price)}</span>
+                  <div className="relative z-10 flex h-full flex-col justify-end gap-3 p-5 text-white sm:p-8">
+                    <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/90">Auto Rotating Banner</p>
+                    <h1 className="max-w-2xl font-heading text-3xl font-extrabold leading-tight sm:text-5xl">
+                      {currentSlide.title}
+                    </h1>
+                    <p className="max-w-xl text-sm text-white/90 sm:text-base">{currentSlide.subtitle}</p>
+                    <div className="flex items-center gap-3">
+                      <Link
+                        to={currentSlide.ctaTo}
+                        className="inline-flex rounded-full bg-[#e3343a] px-6 py-2.5 text-sm font-bold text-white"
+                      >
+                        {currentSlide.cta}
+                      </Link>
+                      <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold">
+                        Slide {safeActiveIndex + 1} / {heroSlides.length}
+                      </span>
                     </div>
-                  </article>
-                ))}
-              </div>
+                  </div>
+                </>
+              ) : (
+                <div className="flex h-full items-center justify-center text-sm text-ink/70">
+                  No banners available.
+                </div>
+              )}
+
+              {!!heroSlides.length && (
+                <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+                  {heroSlides.map((slide, index) => (
+                    <button
+                      key={slide.id}
+                      type="button"
+                      aria-label={`Show slide ${index + 1}`}
+                      onClick={() => setActiveSlide(index)}
+                      className={`h-2.5 rounded-full transition ${
+                        index === safeActiveIndex ? 'w-7 bg-[#e3343a]' : 'w-2.5 bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-xs font-semibold text-[#7b2028]">
+              <span>Fast Delivery</span>
+              <span>///</span>
+              <span>Clothes & Shoes Only</span>
+              <span>///</span>
+              <span>New Banners Auto-scroll</span>
             </div>
           </div>
         </div>
