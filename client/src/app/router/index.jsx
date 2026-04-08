@@ -13,6 +13,7 @@ import { WhatsNewPage } from '../../pages/WhatsNewPage';
 import { FlashSalePage } from '../../pages/FlashSalePage';
 import { LoginPage } from '../../pages/LoginPage';
 import { RegisterPage } from '../../pages/RegisterPage';
+import { ProfilePage } from '../../pages/ProfilePage';
 import { AdminDashboardPage } from '../../pages/AdminDashboardPage';
 import { AdminProductsPage } from '../../pages/AdminProductsPage';
 import { AdminCollectionsPage } from '../../pages/AdminCollectionsPage';
@@ -38,6 +39,14 @@ export const router = createBrowserRouter(
           element: (
             <RequireAuth>
               <CheckoutPage />
+            </RequireAuth>
+          ),
+        },
+        {
+          path: 'profile',
+          element: (
+            <RequireAuth>
+              <ProfilePage />
             </RequireAuth>
           ),
         },
