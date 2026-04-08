@@ -44,7 +44,7 @@ export const Navbar = () => {
         <div className="mx-auto max-w-7xl px-4 py-4">
           <div className="flex items-center gap-3 md:gap-4">
             <Link to="/" className="hidden items-center gap-2 md:inline-flex" aria-label="L$E home">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-[#e3343a] text-xl font-bold text-white">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/15 bg-white text-xl font-bold text-ink">
                 L
               </span>
               <span className="font-heading text-3xl leading-none text-ink">L$E</span>
@@ -54,7 +54,7 @@ export const Navbar = () => {
               <button
                 type="button"
                 onClick={() => setIsMenuOpen((prev) => !prev)}
-                className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:border-[#e3343a] hover:text-[#e3343a]"
+                className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:border-black/30 hover:text-ink"
                 aria-expanded={isMenuOpen}
                 aria-label="Open navigation menu"
               >
@@ -78,7 +78,7 @@ export const Navbar = () => {
                         key={item.label}
                         to={item.to}
                         onClick={() => setIsMenuOpen(false)}
-                        className="px-4 py-3 text-sm font-medium text-ink transition hover:bg-[#fafafa] hover:text-[#e3343a]"
+                        className="px-4 py-3 text-sm font-medium text-ink transition hover:bg-[#fafafa] hover:text-ink"
                       >
                         {item.label}
                       </Link>
@@ -92,12 +92,12 @@ export const Navbar = () => {
               <input
                 type="search"
                 placeholder="I'm looking for..."
-                className="h-12 min-w-0 w-full rounded-l-md border border-[#e3343a] px-4 text-sm text-ink outline-none"
+                className="h-12 min-w-0 w-full rounded-l-md border border-black/20 px-4 text-sm text-ink outline-none"
               />
               <button
                 type="submit"
                 aria-label="Search"
-                className="inline-flex h-12 w-14 items-center justify-center rounded-r-md bg-[#e3343a] text-white"
+                className="inline-flex h-12 w-14 items-center justify-center rounded-r-md bg-[#f68b1e] text-white"
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="11" cy="11" r="7" />

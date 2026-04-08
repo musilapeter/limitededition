@@ -197,7 +197,7 @@ export const HomePage = () => {
         <div className="grid border-b border-black/10 bg-[#f3f3f3] text-sm font-semibold text-ink md:grid-cols-[310px_1fr]">
           <button
             type="button"
-            className="flex items-center justify-center gap-2 bg-[#e3343a] px-4 py-3 text-base text-white"
+            className="flex items-center justify-center gap-2 bg-[#f68b1e] px-4 py-3 text-base text-white"
             onClick={() => setIsCategoryMenuOpen((prev) => !prev)}
             aria-expanded={isCategoryMenuOpen}
             aria-controls="hero-mobile-categories"
@@ -275,7 +275,7 @@ export const HomePage = () => {
                     <div className="flex items-center gap-3">
                       <Link
                         to={currentSlide.ctaTo}
-                        className="inline-flex rounded-full bg-[#e3343a] px-6 py-2.5 text-sm font-bold text-white"
+                        className="inline-flex rounded-full bg-[#f68b1e] px-6 py-2.5 text-sm font-bold text-white"
                       >
                         {currentSlide.cta}
                       </Link>
@@ -300,7 +300,7 @@ export const HomePage = () => {
                       aria-label={`Show slide ${index + 1}`}
                       onClick={() => setActiveSlide(index)}
                       className={`h-2.5 rounded-full transition ${
-                        index === safeActiveIndex ? 'w-7 bg-[#e3343a]' : 'w-2.5 bg-white/70'
+                        index === safeActiveIndex ? 'w-7 bg-[#f68b1e]' : 'w-2.5 bg-white/70'
                       }`}
                     />
                   ))}
