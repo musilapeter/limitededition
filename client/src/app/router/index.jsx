@@ -14,6 +14,7 @@ import { FlashSalePage } from '../../pages/FlashSalePage';
 import { LoginPage } from '../../pages/LoginPage';
 import { RegisterPage } from '../../pages/RegisterPage';
 import { ProfilePage } from '../../pages/ProfilePage';
+import { OrderTrackingPage } from '../../pages/OrderTrackingPage';
 import { AdminDashboardPage } from '../../pages/AdminDashboardPage';
 import { AdminProductsPage } from '../../pages/AdminProductsPage';
 import { AdminCollectionsPage } from '../../pages/AdminCollectionsPage';
@@ -47,6 +48,14 @@ export const router = createBrowserRouter(
           element: (
             <RequireAuth>
               <ProfilePage />
+            </RequireAuth>
+          ),
+        },
+        {
+          path: 'order-tracking',
+          element: (
+            <RequireAuth>
+              <OrderTrackingPage />
             </RequireAuth>
           ),
         },

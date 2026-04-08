@@ -12,11 +12,11 @@ const topActions = [
 ];
 
 const orderActions = [
-  { label: 'Unpaid', icon: 'wallet' },
-  { label: 'To be Shipped', icon: 'gift' },
-  { label: 'Shipped', icon: 'truck' },
-  { label: 'To be Reviewed', icon: 'store' },
-  { label: 'Return Refund', icon: 'refund' },
+  { label: 'Unpaid', icon: 'wallet', to: '/order-tracking' },
+  { label: 'To be Shipped', icon: 'gift', to: '/order-tracking' },
+  { label: 'Shipped', icon: 'truck', to: '/order-tracking' },
+  { label: 'To be Reviewed', icon: 'store', to: '/order-tracking' },
+  { label: 'Return Refund', icon: 'refund', to: '/order-tracking' },
 ];
 
 const serviceActions = [
@@ -242,17 +242,17 @@ export const ProfilePage = () => {
           <section className="rounded-2xl border border-black/10 bg-white px-4 py-4 shadow-sm md:px-5">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="font-heading text-2xl text-ink">My Orders</h2>
-              <a href="#" className="text-base font-semibold text-ink/60 transition hover:text-ink">View All</a>
+              <Link to="/order-tracking" className="text-base font-semibold text-ink/60 transition hover:text-ink">View All</Link>
             </div>
 
             <div className="grid grid-cols-5 gap-2 text-center md:gap-3">
               {orderActions.map((item) => (
-                <button key={item.label} type="button" className="rounded-xl px-1 py-2 transition hover:bg-[#f9f9f9]">
+                <Link key={item.label} to={item.to} className="rounded-xl px-1 py-2 transition hover:bg-[#f9f9f9]">
                   <span className="mx-auto inline-flex h-9 w-9 items-center justify-center text-[#cd3142] md:h-10 md:w-10">
                     <Icon type={item.icon} className="h-7 w-7" />
                   </span>
                   <span className="mt-2 block text-xs font-semibold text-ink md:text-sm">{item.label}</span>
-                </button>
+                </Link>
               ))}
             </div>
           </section>
@@ -336,10 +336,10 @@ export const ProfilePage = () => {
             <Icon type="categories" className="h-5 w-5" />
             Categories
           </Link>
-          <button type="button" className="flex flex-col items-center gap-1 py-1">
+          <Link to="/order-tracking" className="flex flex-col items-center gap-1 py-1">
             <Icon type="message" className="h-5 w-5" />
             Message
-          </button>
+          </Link>
           <Link to="/cart" className="flex flex-col items-center gap-1 py-1">
             <Icon type="cart" className="h-5 w-5" />
             Cart
