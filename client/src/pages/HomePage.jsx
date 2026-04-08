@@ -32,6 +32,7 @@ export const HomePage = () => {
     queryFn: () => fetchProducts({ featured: true }),
   });
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
 
   if (collectionsQuery.isLoading || featuredQuery.isLoading) return <Loader text="Curating the runway..." />;
   if (collectionsQuery.isError || featuredQuery.isError) return <ErrorState message="Failed to load storefront" />;
@@ -78,6 +79,9 @@ export const HomePage = () => {
           <button
             type="button"
             className="flex items-center justify-center gap-2 bg-[#e3343a] px-4 py-3 text-base text-white"
+            onClick={() => setIsCategoryMenuOpen((prev) => !prev)}
+            aria-expanded={isCategoryMenuOpen}
+            aria-controls="hero-mobile-categories"
           >
             <span aria-hidden="true">☰</span>
             Category
@@ -92,6 +96,25 @@ export const HomePage = () => {
             </Link>
           </div>
         </div>
+
+        {isCategoryMenuOpen && (
+          <div id="hero-mobile-categories" className="border-b border-black/10 bg-[#f6f6f6] md:hidden">
+            <ul>
+              {categoryLinks.map((item) => (
+                <li key={`mobile-${item.label}`} className="border-b border-black/5 text-[15px]">
+                  <Link
+                    to={item.to}
+                    onClick={() => setIsCategoryMenuOpen(false)}
+                    className="flex items-center justify-between px-4 py-3 transition hover:bg-white hover:text-vividViolet"
+                  >
+                    <span>{item.label}</span>
+                    <span className="text-ink/50">›</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="grid md:grid-cols-[310px_1fr]">
           <aside className="hidden border-r border-black/10 bg-[#f6f6f6] md:block">
