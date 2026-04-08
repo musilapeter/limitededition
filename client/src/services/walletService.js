@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mockUsers } from './mockData';
+import { formatKsh } from '../utils/currency';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 const getWalletFromMock = () => mockUsers.customer.wallet;
@@ -52,7 +53,9 @@ export const deductFunds = async (userId, amount, reason = 'Purchase') => {
     const currentBalance = wallet.balance || 0;
 
     if (currentBalance < amount) {
-      throw new Error(`Insufficient wallet balance. Available: $${currentBalance}, Required: $${amount}`);
+      throw new Error(
+        `Insufficient wallet balance. Available: ${formatKsh(currentBalance)}, Required: ${formatKsh(amount)}`,
+      );
     }
 
     wallet.balance = currentBalance - amount;

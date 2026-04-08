@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AdminTable } from '../components/common/AdminTable';
 import { Loader } from '../components/common/Loader';
 import { fetchAdminProducts } from '../services/productService';
+import { formatKsh } from '../utils/currency';
 
 export const AdminProductsPage = () => {
   const query = useQuery({ queryKey: ['admin-products'], queryFn: fetchAdminProducts });
@@ -10,7 +11,7 @@ export const AdminProductsPage = () => {
   const rows = query.data.map((product) => [
     product.name,
     product.category,
-    `$${product.price}`,
+    formatKsh(product.price),
     product.isActive ? 'Active' : 'Inactive',
     String(product.variants.length),
   ]);

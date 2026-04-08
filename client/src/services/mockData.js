@@ -284,7 +284,7 @@ export const mockUsers = {
     role: 'admin',
     wallet: {
       balance: 0,
-      currency: 'USD',
+      currency: 'KES',
     },
   },
   customer: {
@@ -294,7 +294,7 @@ export const mockUsers = {
     role: 'customer',
     wallet: {
       balance: 500.0,
-      currency: 'USD',
+      currency: 'KES',
       transactionHistory: [
         { _id: 't1', amount: 100, type: 'credit', date: '2025-01-15', reason: 'Store credit' },
         { _id: 't2', amount: -50, type: 'debit', date: '2025-01-20', reason: 'Purchase refund' },

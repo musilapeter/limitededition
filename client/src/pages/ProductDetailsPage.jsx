@@ -6,6 +6,7 @@ import { Button } from '../components/common/Button';
 import { Loader } from '../components/common/Loader';
 import { ErrorState } from '../components/common/ErrorState';
 import { limitedMessage } from '../utils/stock';
+import { formatKsh } from '../utils/currency';
 import { fetchProductDetails } from '../services/productService';
 import { upsertCartItem } from '../services/cartService';
 
@@ -34,7 +35,7 @@ export const ProductDetailsPage = () => {
       <div className="space-y-4">
         <h1 className="font-heading text-3xl text-electricLime sm:text-4xl lg:text-5xl">{product.name}</h1>
         <p className="text-ink/80">{product.description}</p>
-        <p className="text-2xl font-bold text-hotPink">${product.price}</p>
+        <p className="text-2xl font-bold text-hotPink">{formatKsh(product.price)}</p>
 
         <div className="space-y-2">
           <label className="text-sm uppercase tracking-widest text-cyberTurquoise">Choose variant</label>

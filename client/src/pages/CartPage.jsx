@@ -5,6 +5,7 @@ import { Button } from '../components/common/Button';
 import { Loader } from '../components/common/Loader';
 import { EmptyState } from '../components/common/EmptyState';
 import { fetchCart, removeCartItem, upsertCartItem } from '../services/cartService';
+import { formatKsh } from '../utils/currency';
 
 export const CartPage = () => {
   const navigate = useNavigate();
@@ -86,7 +87,7 @@ export const CartPage = () => {
 
       <div className="flex flex-col gap-3 border-t border-black/10 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-ink/80">
-          Subtotal: <span className="font-bold text-hotPink">${subtotal.toFixed(2)}</span>
+          Subtotal: <span className="font-bold text-hotPink">{formatKsh(subtotal)}</span>
         </p>
         <Button
           onClick={() => {

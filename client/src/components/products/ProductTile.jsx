@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '../common/Button';
 import { StockBadge } from '../common/StockBadge';
 import { limitedMessage } from '../../utils/stock';
+import { formatKsh } from '../../utils/currency';
 import { upsertCartItem } from '../../services/cartService';
 
 export const ProductTile = ({ product }) => {
@@ -51,7 +52,7 @@ export const ProductTile = ({ product }) => {
           {highlightVariant && <StockBadge variant={highlightVariant} />}
         </div>
         <p className="text-sm text-ink/80">{product.shortDescription}</p>
-        <p className="text-lg font-bold text-electricLime">${product.price}</p>
+        <p className="text-lg font-bold text-electricLime">{formatKsh(product.price)}</p>
         {highlightVariant && limitedMessage(highlightVariant) && (
           <p className="text-xs font-semibold uppercase tracking-wide text-hotPink">
             {limitedMessage(highlightVariant)}
