@@ -279,7 +279,7 @@ export const mockProducts = [
 export const mockUsers = {
   admin: {
     id: 'mock-admin-1',
-    name: 'Demo Admin',
+    name: 'House Admin',
     email: 'admin@limitededition.com',
     role: 'admin',
     wallet: {
@@ -289,7 +289,7 @@ export const mockUsers = {
   },
   customer: {
     id: 'mock-customer-1',
-    name: 'Demo Customer',
+    name: 'Nia Muse',
     email: 'customer@limitededition.com',
     role: 'customer',
     wallet: {
@@ -321,7 +321,7 @@ export const mockInventoryLogs = [
     previousQuantity: 3,
     quantityChange: -1,
     newQuantity: 2,
-    reason: 'Demo sale',
+    reason: 'Sample sale',
   },
   {
     _id: 'log-2',

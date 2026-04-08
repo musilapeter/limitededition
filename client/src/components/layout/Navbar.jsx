@@ -1,17 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthStore } from '../../app/store/authStore';
-import { fetchCart } from '../../services/cartService';
+
+const desktopLinks = [
+  { label: "What's New", to: '/hero/whats-new' },
+  { label: 'Flash Sale', to: '/hero/flash-sale' },
+  { label: 'Women Clothing', to: '/hero/category/women-clothing' },
+  { label: 'Men Clothing', to: '/hero/category/men-clothing' },
+  { label: 'Unisex Clothing', to: '/hero/category/unisex-clothing' },
+  { label: 'Outerwear', to: '/hero/category/outerwear' },
+  { label: 'Tops', to: '/hero/category/tops' },
+  { label: 'Bottoms', to: '/hero/category/bottoms' },
+  { label: 'Dresses', to: '/hero/category/dresses' },
+  { label: 'Sportswear', to: '/hero/category/sportswear' },
+  { label: 'Kids Clothing', to: '/hero/category/kids-clothing' },
+  { label: 'Shoes', to: '/hero/category/shoes' },
+  { label: 'Sneakers', to: '/hero/category/sneakers' },
+  { label: 'Formal Shoes', to: '/hero/category/formal-shoes' },
+  { label: 'Boots', to: '/hero/category/boots' },
+];
 
 export const Navbar = () => {
-  const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
-  const cartQuery = useQuery({ queryKey: ['cart'], queryFn: fetchCart });
-
-  const itemCount = (cartQuery.data?.items || []).reduce(
-    (sum, item) => sum + Number(item?.quantity || 0),
-    0,
-  );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-black/10 bg-white">
@@ -33,19 +42,57 @@ export const Navbar = () => {
         </div>
 
         <div className="mx-auto max-w-7xl px-4 py-4">
-          <div className="grid gap-3 md:grid-cols-[220px_1fr_auto] md:items-center">
-            <Link to="/" className="inline-flex items-center gap-2" aria-label="L$E home">
+          <div className="flex items-center gap-3 md:gap-4">
+            <Link to="/" className="hidden items-center gap-2 md:inline-flex" aria-label="L$E home">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-[#e3343a] text-xl font-bold text-white">
                 L
               </span>
               <span className="font-heading text-3xl leading-none text-ink">L$E</span>
             </Link>
 
-            <form className="flex w-full" onSubmit={(event) => event.preventDefault()}>
+            <div className="relative shrink-0 md:hidden">
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+                className="inline-flex items-center gap-3 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:border-[#e3343a] hover:text-[#e3343a]"
+                aria-expanded={isMenuOpen}
+                aria-label="Open navigation menu"
+              >
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <path d="M4 6h16" />
+                  <path d="M4 12h16" />
+                  <path d="M4 18h16" />
+                </svg>
+                Menu
+              </button>
+
+              {isMenuOpen && (
+                <div className="absolute left-0 top-full z-50 mt-3 w-[280px] overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.16)]">
+                  <div className="border-b border-black/10 bg-[#f8f8f8] px-4 py-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/55">Explore</p>
+                    <p className="mt-1 text-sm text-ink/70">Homepage hero links</p>
+                  </div>
+                  <div className="grid max-h-[70vh] gap-1 overflow-y-auto py-2">
+                    {desktopLinks.map((item) => (
+                      <Link
+                        key={item.label}
+                        to={item.to}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="px-4 py-3 text-sm font-medium text-ink transition hover:bg-[#fafafa] hover:text-[#e3343a]"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <form className="flex min-w-0 flex-1" onSubmit={(event) => event.preventDefault()}>
               <input
                 type="search"
                 placeholder="I'm looking for..."
-                className="h-12 w-full rounded-l-md border border-[#e3343a] px-4 text-sm text-ink outline-none"
+                className="h-12 min-w-0 w-full rounded-l-md border border-[#e3343a] px-4 text-sm text-ink outline-none"
               />
               <button
                 type="submit"
@@ -58,45 +105,8 @@ export const Navbar = () => {
                 </svg>
               </button>
             </form>
-
-            <div className="flex items-center gap-5 text-ink">
-              <Link to="/cart" className="relative inline-flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <circle cx="9" cy="20" r="1.5" />
-                  <circle cx="18" cy="20" r="1.5" />
-                  <path d="M3 4h2l2.5 11h11l2-8H7" />
-                </svg>
-                <span className="text-2xl leading-none">Cart</span>
-                {itemCount > 0 && (
-                  <span className="absolute -right-2 -top-1 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-[#e3343a] px-1 text-[10px] font-bold text-white">
-                    {itemCount}
-                  </span>
-                )}
-              </Link>
-
-              <Link to={user ? '/profile' : '/login'} className="inline-flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <circle cx="12" cy="8" r="4" />
-                  <path d="M4 21a8 8 0 0 1 16 0" />
-                </svg>
-                <span className="text-xl">{user ? 'My Account' : 'Sign In'}</span>
-              </Link>
-
-              {user && (
-                <button type="button" onClick={logout} className="text-sm text-vividViolet hover:underline">
-                  Logout
-                </button>
-              )}
-            </div>
           </div>
 
-          <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink/80">
-            <a href="#" className="hover:text-ink">Infinix Note 60 Pro</a>
-            <a href="#" className="hover:text-ink">Maybelline Easter Sale</a>
-            <a href="#" className="hover:text-ink">Garnier Easter Sale</a>
-            <a href="#" className="hover:text-ink">K ELEC X Luckydraw</a>
-            <a href="#" className="hover:text-ink">Women Sneakers</a>
-          </div>
         </div>
       </div>
     </header>

@@ -25,6 +25,66 @@ const categoryLinks = [
   { label: 'Boots', to: '/hero/category/boots' },
 ];
 
+const mobileTabs = ['ALL', 'Earphones', 'Men Shoes', 'Personal Care', 'Women'];
+
+const mobileStyleLinks = [
+  { label: 'Women Clothing', to: '/hero/category/women-clothing' },
+  { label: 'Men Clothing', to: '/hero/category/men-clothing' },
+  { label: 'Dresses', to: '/hero/category/dresses' },
+  { label: 'Shoes', to: '/hero/category/shoes' },
+  { label: 'Sneakers', to: '/hero/category/sneakers' },
+  { label: 'Boots', to: '/hero/category/boots' },
+];
+
+const MobileNavIcon = ({ type, className = 'h-5 w-5' }) => {
+  if (type === 'home') {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M3 11 12 4l9 7" />
+        <path d="M6 10v10h12V10" />
+      </svg>
+    );
+  }
+
+  if (type === 'categories') {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M4 6h16" />
+        <path d="M4 12h16" />
+        <path d="M4 18h16" />
+      </svg>
+    );
+  }
+
+  if (type === 'message') {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9l-5 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" />
+        <circle cx="9" cy="12" r="1" />
+        <circle cx="12" cy="12" r="1" />
+        <circle cx="15" cy="12" r="1" />
+      </svg>
+    );
+  }
+
+  if (type === 'cart') {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="9" cy="19" r="1.5" />
+        <circle cx="18" cy="19" r="1.5" />
+        <path d="M3 4h2l2.5 11h11l2-8H7" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21a8 8 0 0 1 16 0" />
+    </svg>
+  );
+};
+
 export const HomePage = () => {
   const collectionsQuery = useQuery({ queryKey: ['collections'], queryFn: fetchCollections });
   const featuredQuery = useQuery({
@@ -68,13 +128,72 @@ export const HomePage = () => {
 
   const safeActiveIndex = heroSlides.length ? activeSlide % heroSlides.length : 0;
   const currentSlide = heroSlides[safeActiveIndex];
+  const featuredProducts = featuredQuery.data || [];
+  const flashProducts = featuredProducts.slice(0, 4);
 
   if (collectionsQuery.isLoading || featuredQuery.isLoading) return <Loader text="Curating the runway..." />;
   if (collectionsQuery.isError || featuredQuery.isError) return <ErrorState message="Failed to load storefront" />;
 
   return (
-    <div className="space-y-10 fade-in">
-      <section className="overflow-hidden rounded-lg border border-black/10 bg-white">
+    <div className="fade-in min-h-[100dvh] overflow-x-hidden">
+      <div className="space-y-3 md:hidden">
+        <section className="overflow-hidden rounded-2xl border border-black/10 bg-white">
+          <div className="relative aspect-[16/7] w-full bg-gradient-to-r from-[#b8f1b6] via-[#d2f7bc] to-[#bcf2ef]">
+            {currentSlide?.image ? (
+              <img src={currentSlide.image} alt={currentSlide.title} className="h-full w-full object-cover opacity-90" />
+            ) : (
+              <div className="flex h-full items-center justify-center text-sm text-ink/60">Promo Banner</div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#7ddf75]/35 to-transparent" />
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-black/10 bg-white px-3 py-3 shadow-sm">
+          <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
+            {mobileStyleLinks.map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
+                className="inline-flex shrink-0 items-center rounded-full border border-black/10 bg-[#fafafa] px-4 py-2 text-sm font-semibold text-ink transition hover:border-[#d5313d] hover:text-[#d5313d]"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-black/10 bg-white p-3">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-heading text-3xl leading-none text-ink">Flash Sale</h2>
+            <Link to="/hero/flash-sale" className="text-sm font-semibold text-ink/55 hover:text-ink">
+              View all
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-4 gap-2">
+            {flashProducts.map((product) => (
+              <Link key={product._id} to={`/products/${product.slug}`} className="space-y-1 text-center">
+                <div className="aspect-square overflow-hidden rounded-xl bg-[#f3f3f3]">
+                  <img src={product.images?.[0]} alt={product.name} className="h-full w-full object-cover" />
+                </div>
+                <p className="line-clamp-1 text-[12px] text-ink/70">{product.name}</p>
+                <p className="text-xl font-bold text-[#cf3143]">{formatKsh(product.price).replace('.00', '')}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-black/10 bg-white p-4">
+          <div className="flex items-center justify-between">
+            <h2 className="font-heading text-5xl leading-none text-ink">What's New</h2>
+            <Link to="/hero/whats-new" className="text-3xl text-ink/45">›</Link>
+          </div>
+        </section>
+
+      </div>
+
+      <div className="hidden space-y-10 md:block">
+        <section className="overflow-hidden rounded-lg border border-black/10 bg-white">
         <div className="grid border-b border-black/10 bg-[#f3f3f3] text-sm font-semibold text-ink md:grid-cols-[310px_1fr]">
           <button
             type="button"
@@ -209,8 +328,9 @@ export const HomePage = () => {
             View all collections
           </Link>
         </div>
-        <ProductGrid products={featuredQuery.data || []} />
+        <ProductGrid products={featuredProducts} />
       </section>
+      </div>
     </div>
   );
 };
