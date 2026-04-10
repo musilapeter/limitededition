@@ -37,6 +37,42 @@ const mobileStyleLinks = [
   { label: 'Boots', to: '/hero/category/boots' },
 ];
 
+const homepageFeatureSlides = [
+  {
+    id: 'homepage-public-1',
+    title: 'Homepage Edit',
+    subtitle: 'A storefront visual pulled directly from the public folder.',
+    cta: 'Shop Kids Clothing',
+    ctaTo: '/hero/category/kids-clothing',
+    image: '/im.jpg',
+  },
+  {
+    id: 'homepage-public-2',
+    title: 'Fresh Looks',
+    subtitle: 'New image assets now featured on the homepage hero.',
+    cta: 'Shop the Store',
+    ctaTo: '/products',
+    image: '/w1.webp',
+  },
+];
+
+const homepageCardImages = ['/m1.jpg', '/m2.webp', '/m3.avif', '/m4.webp', '/m5.jpg', '/m6.jpeg'];
+
+const homepageHeroImages = [
+  '/im.jpg',
+  '/w1.webp',
+  '/w2.jpg',
+  '/w3.webp',
+  '/w4.webp',
+  '/m1.jpg',
+  '/m2.webp',
+  '/m3.avif',
+  '/m4.webp',
+  '/m5.jpg',
+  '/m6.jpeg',
+  '/m7.jpg',
+];
+
 const MobileNavIcon = ({ type, className = 'h-5 w-5' }) => {
   if (type === 'home') {
     return (
@@ -89,6 +125,7 @@ const MobileNavIcon = ({ type, className = 'h-5 w-5' }) => {
 export const HomePage = () => {
   const collectionsQuery = useQuery({ queryKey: ['collections'], queryFn: fetchCollections });
   const cartQuery = useQuery({ queryKey: ['cart'], queryFn: fetchCart });
+  const productsQuery = useQuery({ queryKey: ['products'], queryFn: () => fetchProducts() });
   const featuredQuery = useQuery({
     queryKey: ['featured-products'],
     queryFn: () => fetchProducts({ featured: true }),
@@ -115,7 +152,12 @@ export const HomePage = () => {
       image: product.images?.[0],
     }));
 
-    return [...collectionSlides, ...productSlides].filter((slide) => slide.image).slice(0, 8);
+    const combinedSlides = [...homepageFeatureSlides, ...collectionSlides, ...productSlides].slice(0, 8);
+
+    return combinedSlides.map((slide, index) => ({
+      ...slide,
+      image: homepageHeroImages[index % homepageHeroImages.length],
+    }));
   }, [collectionsQuery.data, featuredQuery.data]);
 
   useEffect(() => {
@@ -131,30 +173,39 @@ export const HomePage = () => {
   const safeActiveIndex = heroSlides.length ? activeSlide % heroSlides.length : 0;
   const currentSlide = heroSlides[safeActiveIndex];
   const featuredProducts = featuredQuery.data || [];
+  const allProducts = productsQuery.data || [];
+  const featuredPieces = useMemo(() => {
+    const targetCount = 6;
+    const items = [...featuredProducts];
+    const fallbackPool = allProducts.filter((product) => !items.some((item) => item._id === product._id));
+
+    while (items.length < targetCount) {
+      const fallback = fallbackPool[items.length - featuredProducts.length] || allProducts[items.length % (allProducts.length || 1)];
+      if (!fallback) break;
+
+      items.push({
+        ...fallback,
+        _id: `${fallback._id}-featured-${items.length + 1}`,
+      });
+    }
+
+    return items.slice(0, targetCount).map((product, index) => ({
+      ...product,
+      images: [homepageCardImages[index % homepageCardImages.length]],
+    }));
+  }, [allProducts, featuredProducts]);
   const flashProducts = featuredProducts.slice(0, 4);
   const cartItemCount = (cartQuery.data?.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
 
-  if (collectionsQuery.isLoading || featuredQuery.isLoading) return <Loader text="Curating the runway..." />;
-  if (collectionsQuery.isError || featuredQuery.isError) return <ErrorState message="Failed to load storefront" />;
+  if (collectionsQuery.isLoading || featuredQuery.isLoading || productsQuery.isLoading) {
+    return <Loader text="Curating the runway..." />;
+  }
+  if (collectionsQuery.isError || featuredQuery.isError || productsQuery.isError) {
+    return <ErrorState message="Failed to load storefront" />;
+  }
 
   return (
     <div className="fade-in relative min-h-[100dvh] overflow-x-hidden">
-      <Link
-        to="/cart"
-        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white px-4 py-3 shadow-[0_18px_40px_rgba(0,0,0,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_48px_rgba(0,0,0,0.22)]"
-        aria-label={`Open cart${cartItemCount ? ` with ${cartItemCount} items` : ''}`}
-      >
-        <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#2b8a3e] text-white">
-          <MobileNavIcon type="cart" className="h-5 w-5" />
-          {cartItemCount > 0 && (
-            <span className="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-hotPink px-1.5 py-0.5 text-[11px] font-bold leading-none text-white">
-              {cartItemCount}
-            </span>
-          )}
-        </span>
-        <span className="hidden text-sm font-semibold text-ink sm:inline">Cart</span>
-      </Link>
-
       <div className="space-y-3 md:hidden">
         <section className="overflow-hidden rounded-2xl border border-black/10 bg-white">
           <div className="relative aspect-[16/7] w-full bg-gradient-to-r from-[#b8f1b6] via-[#d2f7bc] to-[#bcf2ef]">
@@ -347,7 +398,7 @@ export const HomePage = () => {
             View all collections
           </Link>
         </div>
-        <ProductGrid products={featuredProducts} />
+        <ProductGrid products={featuredPieces} />
       </section>
       </div>
     </div>

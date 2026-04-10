@@ -81,6 +81,17 @@ export const HeroCategoryPage = () => {
     description: 'Discover curated products in this section.',
     productCategories: [],
   };
+  const isKidsCategory = categorySlug === 'kids-clothing';
+  const kidsImages = [
+    '/kid1.jpg',
+    '/kid2.webp',
+    '/kid3.jpg',
+    '/kid4.webp',
+    '/kid5.webp',
+    '/kid6.jpg',
+    '/kid7.webp',
+    '/kid8.webp',
+  ];
 
   const query = useQuery({ queryKey: ['hero-category-products'], queryFn: () => fetchProducts() });
 
@@ -91,6 +102,15 @@ export const HeroCategoryPage = () => {
     const allowed = new Set(config.productCategories);
     return list.filter((item) => allowed.has(item.category));
   }, [query.data, config.productCategories]);
+
+  const displayProducts = useMemo(() => {
+    if (!isKidsCategory) return products;
+
+    return products.map((product, index) => ({
+      ...product,
+      images: [kidsImages[index % kidsImages.length]],
+    }));
+  }, [isKidsCategory, kidsImages, products]);
 
   if (query.isLoading) return <Loader text="Loading category..." />;
   if (query.isError) return <ErrorState message="Failed to load this category" />;
@@ -107,7 +127,7 @@ export const HeroCategoryPage = () => {
 
       <section className="space-y-3">
         <h2 className="font-heading text-2xl text-hotPink">Available Products</h2>
-        <ProductGrid products={products} />
+        <ProductGrid products={displayProducts} />
       </section>
     </div>
   );
