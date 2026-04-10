@@ -51,51 +51,83 @@ export const Navbar = () => {
         </div>
 
         <div className="mx-auto max-w-7xl px-4 py-4">
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+            <div className="flex items-center justify-between md:hidden">
+              <div className="relative shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setIsMenuOpen((prev) => !prev)}
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-md border border-[#2b8a3e] bg-[#2b8a3e] text-white shadow-sm transition hover:brightness-110"
+                  aria-expanded={isMenuOpen}
+                  aria-label="Open navigation menu"
+                >
+                  <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M4 6h16" />
+                    <path d="M4 12h16" />
+                    <path d="M4 18h16" />
+                  </svg>
+                </button>
+
+                {isMenuOpen && (
+                  <div className="absolute left-0 top-full z-50 mt-3 w-[280px] overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.16)]">
+                    <div className="border-b border-black/10 bg-[#f8f8f8] px-4 py-3">
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/55">Explore</p>
+                      <p className="mt-1 text-sm text-ink/70">Homepage hero links</p>
+                    </div>
+                    <div className="grid max-h-[70vh] gap-1 overflow-y-auto py-2">
+                      {desktopLinks.map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.to}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="px-4 py-3 text-sm font-medium text-ink transition hover:bg-[#fafafa] hover:text-ink"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/cart"
+                  className="relative inline-flex h-12 w-12 items-center justify-center rounded-md border border-black/15 bg-white text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                  aria-label={`Open cart${cartItemCount ? ` with ${cartItemCount} items` : ''}`}
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <circle cx="9" cy="19" r="1.5" />
+                    <circle cx="18" cy="19" r="1.5" />
+                    <path d="M3 4h2l2.5 11h11l2-8H7" />
+                  </svg>
+                  {cartItemCount > 0 && (
+                    <span className="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-hotPink px-1.5 py-0.5 text-[11px] font-bold leading-none text-white">
+                      {cartItemCount}
+                    </span>
+                  )}
+                </Link>
+
+                <Link
+                  to={user ? '/profile' : '/login'}
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/15 bg-[#f6f6f6] text-sm font-bold text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                  aria-label={user ? 'Open profile page' : 'Sign in'}
+                  title={user ? 'Profile' : 'Sign In'}
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 21a8 8 0 0 1 16 0" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
             <Link to="/" className="hidden items-center gap-2 md:inline-flex" aria-label="L$E home">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/15 bg-white text-xl font-bold text-ink">
                 L
               </span>
               <span className="font-heading text-3xl leading-none text-ink">L$E</span>
             </Link>
-
-            <div className="relative shrink-0 md:hidden">
-              <button
-                type="button"
-                onClick={() => setIsMenuOpen((prev) => !prev)}
-                className="inline-flex items-center gap-3 rounded-full border border-[#2b8a3e] bg-[#2b8a3e] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-110"
-                aria-expanded={isMenuOpen}
-                aria-label="Open navigation menu"
-              >
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
-                  <path d="M4 6h16" />
-                  <path d="M4 12h16" />
-                  <path d="M4 18h16" />
-                </svg>
-                Menu
-              </button>
-
-              {isMenuOpen && (
-                <div className="absolute left-0 top-full z-50 mt-3 w-[280px] overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.16)]">
-                  <div className="border-b border-black/10 bg-[#f8f8f8] px-4 py-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/55">Explore</p>
-                    <p className="mt-1 text-sm text-ink/70">Homepage hero links</p>
-                  </div>
-                  <div className="grid max-h-[70vh] gap-1 overflow-y-auto py-2">
-                    {desktopLinks.map((item) => (
-                      <Link
-                        key={item.label}
-                        to={item.to}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="px-4 py-3 text-sm font-medium text-ink transition hover:bg-[#fafafa] hover:text-ink"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
 
             <form className="flex min-w-0 flex-1" onSubmit={(event) => event.preventDefault()}>
               <input
@@ -115,7 +147,7 @@ export const Navbar = () => {
               </button>
             </form>
 
-            <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-2 md:flex">
               <Link
                 to="/cart"
                 className="relative inline-flex h-12 w-12 items-center justify-center rounded-md border border-black/15 bg-white text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
