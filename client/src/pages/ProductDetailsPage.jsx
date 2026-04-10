@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { StockBadge } from '../components/common/StockBadge';
 import { Button } from '../components/common/Button';
 import { Loader } from '../components/common/Loader';
@@ -12,6 +12,7 @@ import { upsertCartItem } from '../services/cartService';
 
 export const ProductDetailsPage = () => {
   const { slug } = useParams();
+  const location = useLocation();
   const [variantId, setVariantId] = useState('');
   const queryClient = useQueryClient();
 
@@ -29,11 +30,12 @@ export const ProductDetailsPage = () => {
   const product = query.data;
   if (!product) return <ErrorState message="Product unavailable" />;
   const selected = product.variants.find((variant) => variant._id === variantId) || product.variants[0];
+  const displayImage = location.state?.imageOverride || product.images?.[0];
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <img
-        src={product.images?.[0]}
+        src={displayImage}
         alt={product.name}
         className="h-80 w-full rounded-2xl object-cover sm:h-[420px] lg:h-[520px]"
       />

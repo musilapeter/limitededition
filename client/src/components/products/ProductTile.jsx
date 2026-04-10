@@ -81,7 +81,11 @@ export const ProductTile = ({ product }) => {
           >
             {isAdding ? 'Adding...' : 'Add to Cart'}
           </Button>
-          <Link to={`/products/${product.slug}`} className="flex-1">
+          <Link
+            to={`/products/${product.slug}`}
+            state={{ imageOverride: product.images?.[0] }}
+            className="flex-1"
+          >
             <Button variant="ghost" className="w-full">
               View
             </Button>
