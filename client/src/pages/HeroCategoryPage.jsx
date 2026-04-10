@@ -133,6 +133,8 @@ export const HeroCategoryPage = () => {
     '/kid6.jpg',
     '/kid7.webp',
     '/kid8.webp',
+    '/k4.jpg',
+    '/15.webp',
   ];
 
   const query = useQuery({ queryKey: ['hero-category-products'], queryFn: () => fetchProducts() });
