@@ -6,30 +6,6 @@ import { Loader } from '../components/common/Loader';
 import { ErrorState } from '../components/common/ErrorState';
 import { fetchProducts } from '../services/productService';
 
-const WOMEN_CLOTHING_IMAGES = [
-  '/w1.webp',
-  '/w2.jpg',
-  '/w3.webp',
-  '/w4.webp',
-  '/w5.webp',
-  '/w7.jpg',
-  '/w8.webp',
-  '/w9.jpg',
-  '/w10.jpg',
-  '/w11.webp',
-  '/w12.webp',
-  '/w13.avif',
-  '/w14.webp',
-  '/top1.jpg',
-  '/top2.webp',
-  '/top3.jpeg',
-  '/top4.webp',
-  '/top5.webp',
-  '/top6.jpg',
-  '/top7.webp',
-  '/top8.jpg',
-];
-
 const TOPS_IMAGES = [
   '/top1.jpg',
   '/top2.webp',
@@ -134,7 +110,6 @@ export const HeroCategoryPage = () => {
     '/kid7.webp',
     '/kid8.webp',
     '/k4.jpg',
-    '/15.webp',
   ];
 
   const query = useQuery({ queryKey: ['hero-category-products'], queryFn: () => fetchProducts() });
@@ -148,13 +123,6 @@ export const HeroCategoryPage = () => {
   }, [query.data, config.productCategories]);
 
   const displayProducts = useMemo(() => {
-    if (categorySlug === 'women-clothing') {
-      return products.slice(0, WOMEN_CLOTHING_IMAGES.length).map((product, index) => ({
-        ...product,
-        images: [WOMEN_CLOTHING_IMAGES[index % WOMEN_CLOTHING_IMAGES.length]],
-      }));
-    }
-
     if (categorySlug === 'tops') {
       return products.map((product, index) => ({
         ...product,
@@ -164,7 +132,7 @@ export const HeroCategoryPage = () => {
 
     if (!isKidsCategory) return products;
 
-    return products.map((product, index) => ({
+    return products.slice(0, 18).map((product, index) => ({
       ...product,
       images: [kidsImages[index % kidsImages.length]],
     }));
