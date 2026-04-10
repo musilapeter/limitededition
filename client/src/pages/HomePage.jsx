@@ -57,6 +57,7 @@ const homepageFeatureSlides = [
 ];
 
 const homepageCardImages = ['/m1.jpg', '/m2.webp', '/m3.avif', '/m4.webp', '/m5.jpg', '/m6.jpeg'];
+const whatsNewCardImages = ['/w1.webp', '/w2.jpg', '/w3.webp', '/w4.webp', '/m7.jpg', '/qtq80-7bsDUb.jpeg'];
 
 const homepageHeroImages = [
   '/im.jpg',
@@ -216,6 +217,23 @@ export const HomePage = () => {
       images: [homepageCardImages[index % homepageCardImages.length]],
     }));
   }, [allProducts, featuredProducts]);
+  const whatsNewProducts = useMemo(() => {
+    const targetCount = 6;
+    const items = [...allProducts].reverse();
+
+    while (items.length < targetCount && allProducts.length) {
+      const fallback = allProducts[items.length % allProducts.length];
+      items.push({
+        ...fallback,
+        _id: `${fallback._id}-new-${items.length + 1}`,
+      });
+    }
+
+    return items.slice(0, targetCount).map((product, index) => ({
+      ...product,
+      images: [whatsNewCardImages[index % whatsNewCardImages.length]],
+    }));
+  }, [allProducts]);
   const cartItemCount = (cartQuery.data?.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
 
   if (collectionsQuery.isLoading || featuredQuery.isLoading || productsQuery.isLoading) {
@@ -275,9 +293,21 @@ export const HomePage = () => {
         </section>
 
         <section className="rounded-2xl border border-black/10 bg-white p-4">
-          <div className="flex items-center justify-between">
+          <div className="mb-3 flex items-center justify-between">
             <h2 className="font-heading text-5xl leading-none text-ink">What's New</h2>
             <Link to="/hero/whats-new" className="text-3xl text-ink/45">›</Link>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            {whatsNewProducts.map((product) => (
+              <Link key={product._id} to={`/products/${product.slug}`} className="space-y-1 text-center">
+                <div className="aspect-square overflow-hidden rounded-xl bg-[#f3f3f3]">
+                  <img src={product.images?.[0]} alt={product.name} className="h-full w-full object-cover" />
+                </div>
+                <p className="line-clamp-1 text-[12px] text-ink/70">{product.name}</p>
+                <p className="text-sm font-bold text-[#cf3143]">{formatKsh(product.price).replace('.00', '')}</p>
+              </Link>
+            ))}
           </div>
         </section>
 

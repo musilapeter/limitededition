@@ -6,12 +6,38 @@ import { Loader } from '../components/common/Loader';
 import { ErrorState } from '../components/common/ErrorState';
 import { fetchProducts } from '../services/productService';
 
+const freshDropImages = [
+  '/w1.webp',
+  '/w2.jpg',
+  '/w3.webp',
+  '/w4.webp',
+  '/m7.jpg',
+  '/qtq80-7bsDUb.jpeg',
+  '/im.jpg',
+  '/m2.webp',
+  '/m4.webp',
+];
+
 export const WhatsNewPage = () => {
   const query = useQuery({ queryKey: ['whats-new-products'], queryFn: () => fetchProducts() });
 
   const latestProducts = useMemo(() => {
     const list = query.data || [];
-    return [...list].reverse().slice(0, 9);
+    const latest = [...list].reverse();
+    const targetCount = 9;
+
+    while (latest.length < targetCount && list.length) {
+      const fallback = list[latest.length % list.length];
+      latest.push({
+        ...fallback,
+        _id: `${fallback._id}-fresh-${latest.length + 1}`,
+      });
+    }
+
+    return latest.slice(0, targetCount).map((product, index) => ({
+      ...product,
+      images: [freshDropImages[index % freshDropImages.length]],
+    }));
   }, [query.data]);
 
   if (query.isLoading) return <Loader text="Loading what's new..." />;
