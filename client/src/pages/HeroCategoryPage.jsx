@@ -98,11 +98,10 @@ export const HeroCategoryPage = () => {
   return (
     <div className="space-y-6">
       <section className="rounded-xl border border-black/10 bg-white p-5">
-        <p className="text-xs uppercase tracking-[0.25em] text-cyberTurquoise">Hero Category</p>
         <h1 className="mt-2 font-heading text-3xl text-ink sm:text-4xl">{config.title}</h1>
         <p className="mt-2 max-w-2xl text-sm text-ink/80">{config.description}</p>
         <Link to="/" className="mt-4 inline-block text-sm font-semibold text-vividViolet underline underline-offset-4">
-          Back to Home Hero
+          Back
         </Link>
       </section>
 

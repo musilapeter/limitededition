@@ -26,7 +26,7 @@ export const WhatsNewPage = () => {
           Latest arrivals from current collections. Updated content area for your real launch data.
         </p>
         <Link to="/" className="mt-4 inline-block text-sm font-semibold text-vividViolet underline underline-offset-4">
-          Back to Home Hero
+          Back
         </Link>
       </section>
 

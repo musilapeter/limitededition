@@ -26,7 +26,7 @@ export const FlashSalePage = () => {
           Time-sensitive promotions area ready for your real campaign and discounts.
         </p>
         <Link to="/" className="mt-4 inline-block text-sm font-semibold text-vividViolet underline underline-offset-4">
-          Back to Home Hero
+          Back
         </Link>
       </section>
 
