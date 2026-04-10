@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCart } from '../../services/cartService';
 import { useAuthStore } from '../../app/store/authStore';
+import { useTheme } from '../../app/theme/ThemeProvider';
 
 const desktopLinks = [
   { label: 'Homepage', to: '/' },
@@ -25,6 +26,7 @@ const desktopLinks = [
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDark, isSystem, toggleTheme, setMode } = useTheme();
   const user = useAuthStore((state) => state.user);
   const cartQuery = useQuery({ queryKey: ['cart'], queryFn: fetchCart });
   const cartItemCount = (cartQuery.data?.items || []).reduce(
@@ -116,6 +118,48 @@ export const Navbar = () => {
                     <path d="M4 21a8 8 0 0 1 16 0" />
                   </svg>
                 </Link>
+
+                <button
+                  type="button"
+                  onClick={() => setMode('system')}
+                  className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition ${
+                    isSystem ? 'border-[#2b8a3e] text-[#2b8a3e]' : 'border-black/10 text-ink hover:border-black/20 hover:text-[#2b8a3e]'
+                  }`}
+                  aria-label="Follow device theme"
+                  title="Use device settings"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <rect x="4" y="5" width="16" height="11" rx="2" />
+                    <path d="M8 20h8" />
+                    <path d="M12 16v4" />
+                  </svg>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-ink transition hover:border-black/20 hover:text-[#2b8a3e]"
+                  aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                  title={isDark ? 'Light mode' : 'Dark mode'}
+                >
+                  {isDark ? (
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <path d="M12 3v2.5" />
+                      <path d="M12 18.5V21" />
+                      <path d="M4.2 4.2l1.8 1.8" />
+                      <path d="M18 18l1.8 1.8" />
+                      <path d="M3 12h2.5" />
+                      <path d="M18.5 12H21" />
+                      <path d="M4.2 19.8 6 18" />
+                      <path d="M18 6l1.8-1.8" />
+                      <circle cx="12" cy="12" r="4.5" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+                      <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" />
+                    </svg>
+                  )}
+                </button>
               </div>
             </div>
 
@@ -173,6 +217,48 @@ export const Navbar = () => {
                   <path d="M4 21a8 8 0 0 1 16 0" />
                 </svg>
               </Link>
+
+              <button
+                type="button"
+                onClick={() => setMode('system')}
+                className={`inline-flex h-12 w-12 items-center justify-center rounded-full border transition ${
+                  isSystem ? 'border-[#2b8a3e] text-[#2b8a3e]' : 'border-black/10 text-ink hover:border-black/20 hover:text-[#2b8a3e]'
+                }`}
+                aria-label="Follow device theme"
+                title="Use device settings"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <rect x="4" y="5" width="16" height="11" rx="2" />
+                  <path d="M8 20h8" />
+                  <path d="M12 16v4" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-ink transition hover:border-black/20 hover:text-[#2b8a3e]"
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                title={isDark ? 'Light mode' : 'Dark mode'}
+              >
+                {isDark ? (
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M12 3v2.5" />
+                    <path d="M12 18.5V21" />
+                    <path d="M4.2 4.2l1.8 1.8" />
+                    <path d="M18 18l1.8 1.8" />
+                    <path d="M3 12h2.5" />
+                    <path d="M18.5 12H21" />
+                    <path d="M4.2 19.8 6 18" />
+                    <path d="M18 6l1.8-1.8" />
+                    <circle cx="12" cy="12" r="4.5" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" />
+                  </svg>
+                )}
+              </button>
             </div>
           </div>
 
