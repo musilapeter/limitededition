@@ -6,6 +6,40 @@ import { Loader } from '../components/common/Loader';
 import { ErrorState } from '../components/common/ErrorState';
 import { fetchProducts } from '../services/productService';
 
+const WOMEN_CLOTHING_IMAGES = [
+  '/w1.webp',
+  '/w2.jpg',
+  '/w3.webp',
+  '/w4.webp',
+  '/w5.webp',
+  '/w6.jpg',
+  '/w7.jpg',
+  '/w8.webp',
+  '/w9.avif',
+  '/w10.jpg',
+  '/w11.webp',
+  '/w12.webp',
+  '/w13.avif',
+  '/w14.webp',
+];
+
+const TOPS_IMAGES = [
+  '/top1.jpg',
+  '/top2.webp',
+  '/top3.jpeg',
+  '/top4.webp',
+  '/top5.webp',
+  '/top6.jpg',
+  '/top7.webp',
+  '/top8.jpg',
+  '/top9.avif',
+  '/top10.avif',
+  '/top11.avif',
+  '/top12.avif',
+  '/top13.avif',
+  '/top14.webp',
+];
+
 const HERO_CATEGORY_CONFIG = {
   'women-clothing': {
     title: 'Women Clothing',
@@ -104,6 +138,20 @@ export const HeroCategoryPage = () => {
   }, [query.data, config.productCategories]);
 
   const displayProducts = useMemo(() => {
+    if (categorySlug === 'women-clothing') {
+      return products.map((product, index) => ({
+        ...product,
+        images: [WOMEN_CLOTHING_IMAGES[index % WOMEN_CLOTHING_IMAGES.length]],
+      }));
+    }
+
+    if (categorySlug === 'tops') {
+      return products.map((product, index) => ({
+        ...product,
+        images: [TOPS_IMAGES[index % TOPS_IMAGES.length]],
+      }));
+    }
+
     if (!isKidsCategory) return products;
 
     return products.map((product, index) => ({
