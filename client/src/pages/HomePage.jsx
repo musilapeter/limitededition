@@ -5,6 +5,7 @@ import { CollectionBanner } from '../components/collections/CollectionBanner';
 import { ProductGrid } from '../components/products/ProductGrid';
 import { Loader } from '../components/common/Loader';
 import { ErrorState } from '../components/common/ErrorState';
+import { fetchCart } from '../services/cartService';
 import { fetchCollections } from '../services/collectionService';
 import { fetchProducts } from '../services/productService';
 import { formatKsh } from '../utils/currency';
@@ -87,6 +88,7 @@ const MobileNavIcon = ({ type, className = 'h-5 w-5' }) => {
 
 export const HomePage = () => {
   const collectionsQuery = useQuery({ queryKey: ['collections'], queryFn: fetchCollections });
+  const cartQuery = useQuery({ queryKey: ['cart'], queryFn: fetchCart });
   const featuredQuery = useQuery({
     queryKey: ['featured-products'],
     queryFn: () => fetchProducts({ featured: true }),
@@ -130,12 +132,29 @@ export const HomePage = () => {
   const currentSlide = heroSlides[safeActiveIndex];
   const featuredProducts = featuredQuery.data || [];
   const flashProducts = featuredProducts.slice(0, 4);
+  const cartItemCount = (cartQuery.data?.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
 
   if (collectionsQuery.isLoading || featuredQuery.isLoading) return <Loader text="Curating the runway..." />;
   if (collectionsQuery.isError || featuredQuery.isError) return <ErrorState message="Failed to load storefront" />;
 
   return (
-    <div className="fade-in min-h-[100dvh] overflow-x-hidden">
+    <div className="fade-in relative min-h-[100dvh] overflow-x-hidden">
+      <Link
+        to="/cart"
+        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white px-4 py-3 shadow-[0_18px_40px_rgba(0,0,0,0.18)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_48px_rgba(0,0,0,0.22)]"
+        aria-label={`Open cart${cartItemCount ? ` with ${cartItemCount} items` : ''}`}
+      >
+        <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#2b8a3e] text-white">
+          <MobileNavIcon type="cart" className="h-5 w-5" />
+          {cartItemCount > 0 && (
+            <span className="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-hotPink px-1.5 py-0.5 text-[11px] font-bold leading-none text-white">
+              {cartItemCount}
+            </span>
+          )}
+        </span>
+        <span className="hidden text-sm font-semibold text-ink sm:inline">Cart</span>
+      </Link>
+
       <div className="space-y-3 md:hidden">
         <section className="overflow-hidden rounded-2xl border border-black/10 bg-white">
           <div className="relative aspect-[16/7] w-full bg-gradient-to-r from-[#b8f1b6] via-[#d2f7bc] to-[#bcf2ef]">

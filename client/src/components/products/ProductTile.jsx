@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { Button } from '../common/Button';
 import { StockBadge } from '../common/StockBadge';
@@ -10,6 +11,7 @@ export const ProductTile = ({ product }) => {
   const highlightVariant = product.variants[0];
   const [isAdding, setIsAdding] = useState(false);
   const [addStatus, setAddStatus] = useState(null);
+  const queryClient = useQueryClient();
 
   const handleAddToCart = async () => {
     if (!product.variants.length) {
@@ -27,7 +29,13 @@ export const ProductTile = ({ product }) => {
         images: product.images,
       };
 
-      await upsertCartItem(productSnapshot, product.variants[0]._id, 1);
+      await upsertCartItem({
+        productId: product._id,
+        variantId: product.variants[0]._id,
+        quantity: 1,
+        productSnapshot,
+      });
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
       setAddStatus('success');
       setTimeout(() => setAddStatus(null), 2000);
     } catch (error) {

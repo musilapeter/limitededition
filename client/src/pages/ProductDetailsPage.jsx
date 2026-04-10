@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { StockBadge } from '../components/common/StockBadge';
 import { Button } from '../components/common/Button';
@@ -13,9 +13,15 @@ import { upsertCartItem } from '../services/cartService';
 export const ProductDetailsPage = () => {
   const { slug } = useParams();
   const [variantId, setVariantId] = useState('');
+  const queryClient = useQueryClient();
 
   const query = useQuery({ queryKey: ['product', slug], queryFn: () => fetchProductDetails(slug) });
-  const mutation = useMutation({ mutationFn: upsertCartItem });
+  const mutation = useMutation({
+    mutationFn: upsertCartItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
+    },
+  });
 
   if (query.isLoading) return <Loader text="Loading product details..." />;
   if (query.isError) return <ErrorState message="Product not found" />;
