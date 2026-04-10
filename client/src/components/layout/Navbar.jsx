@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { fetchCart } from '../../services/cartService';
+import { useAuthStore } from '../../app/store/authStore';
 
 const desktopLinks = [
   { label: "What's New", to: '/hero/whats-new' },
@@ -21,6 +24,12 @@ const desktopLinks = [
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const user = useAuthStore((state) => state.user);
+  const cartQuery = useQuery({ queryKey: ['cart'], queryFn: fetchCart });
+  const cartItemCount = (cartQuery.data?.items || []).reduce(
+    (sum, item) => sum + Number(item?.quantity || 0),
+    0,
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-black/10 bg-white">
@@ -105,6 +114,37 @@ export const Navbar = () => {
                 </svg>
               </button>
             </form>
+
+            <div className="flex items-center gap-2">
+              <Link
+                to="/cart"
+                className="relative inline-flex h-12 w-12 items-center justify-center rounded-md border border-black/15 bg-white text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                aria-label={`Open cart${cartItemCount ? ` with ${cartItemCount} items` : ''}`}
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <circle cx="9" cy="19" r="1.5" />
+                  <circle cx="18" cy="19" r="1.5" />
+                  <path d="M3 4h2l2.5 11h11l2-8H7" />
+                </svg>
+                {cartItemCount > 0 && (
+                  <span className="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-hotPink px-1.5 py-0.5 text-[11px] font-bold leading-none text-white">
+                    {cartItemCount}
+                  </span>
+                )}
+              </Link>
+
+              <Link
+                to={user ? '/profile' : '/login'}
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/15 bg-[#f6f6f6] text-sm font-bold text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                aria-label={user ? 'Open profile page' : 'Sign in'}
+                title={user ? 'Profile' : 'Sign In'}
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21a8 8 0 0 1 16 0" />
+                </svg>
+              </Link>
+            </div>
           </div>
 
         </div>
