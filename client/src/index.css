@@ -47,12 +47,12 @@ body {
 [data-theme='dark'] .bg-white\/15,
 [data-theme='dark'] .bg-white\/10,
 [data-theme='dark'] .bg-white\/8,
-[data-theme='dark'] .bg-\[\#fafafa\],
-[data-theme='dark'] .bg-\[\#ececef\] {
+[data-theme='dark'] .bg-\[\#fafafa\] {
   background-color: var(--app-surface) !important;
 }
 
-[data-theme='dark'] .bg-\[\#fafafa\],
+[data-theme='dark'] .bg-\[\#f3f3f3\],
+[data-theme='dark'] .bg-\[\#f6f6f6\],
 [data-theme='dark'] .bg-\[\#ececef\] {
   background-color: var(--app-surface-soft) !important;
 }
@@ -73,7 +73,10 @@ body {
 [data-theme='dark'] .text-ink\/80,
 [data-theme='dark'] .text-ink\/75,
 [data-theme='dark'] .text-ink\/70,
-[data-theme='dark'] .text-ink\/60 {
+[data-theme='dark'] .text-ink\/60,
+[data-theme='dark'] .text-ink\/55,
+[data-theme='dark'] .text-ink\/50,
+[data-theme='dark'] .text-ink\/45 {
   color: var(--app-text) !important;
 }
 
@@ -98,6 +101,11 @@ body {
 
 [data-theme='dark'] input::placeholder {
   color: var(--app-text-soft);
+}
+
+[data-theme='dark'] .bg-hero-glow {
+  background-image: radial-gradient(circle at top right, rgba(96, 165, 250, 0.12), transparent 35%),
+    radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.1), transparent 30%);
 }
 
 .pulse-section-light {

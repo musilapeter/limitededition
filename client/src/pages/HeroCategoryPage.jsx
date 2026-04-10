@@ -6,6 +6,30 @@ import { Loader } from '../components/common/Loader';
 import { ErrorState } from '../components/common/ErrorState';
 import { fetchProducts } from '../services/productService';
 
+const WOMEN_CLOTHING_IMAGES = [
+  '/w1.webp',
+  '/w2.jpg',
+  '/w3.webp',
+  '/w4.webp',
+  '/w5.webp',
+  '/w7.jpg',
+  '/w8.webp',
+  '/w9.jpg',
+  '/w10.jpg',
+  '/w11.webp',
+  '/w12.webp',
+  '/w13.avif',
+  '/w14.webp',
+  '/top1.jpg',
+  '/top2.webp',
+  '/top3.jpeg',
+  '/top4.webp',
+  '/top5.webp',
+  '/top6.jpg',
+  '/top7.webp',
+  '/top8.jpg',
+];
+
 const TOPS_IMAGES = [
   '/top1.jpg',
   '/top2.webp',
@@ -100,6 +124,7 @@ export const HeroCategoryPage = () => {
     productCategories: [],
   };
   const isKidsCategory = categorySlug === 'kids-clothing';
+  const isWomenCategory = categorySlug === 'women-clothing';
   const kidsImages = [
     '/kid1.jpg',
     '/kid2.webp',
@@ -123,6 +148,13 @@ export const HeroCategoryPage = () => {
   }, [query.data, config.productCategories]);
 
   const displayProducts = useMemo(() => {
+    if (isWomenCategory) {
+      return products.slice(0, WOMEN_CLOTHING_IMAGES.length).map((product, index) => ({
+        ...product,
+        images: [WOMEN_CLOTHING_IMAGES[index % WOMEN_CLOTHING_IMAGES.length]],
+      }));
+    }
+
     if (categorySlug === 'tops') {
       return products.map((product, index) => ({
         ...product,
@@ -136,7 +168,7 @@ export const HeroCategoryPage = () => {
       ...product,
       images: [kidsImages[index % kidsImages.length]],
     }));
-  }, [isKidsCategory, kidsImages, products]);
+  }, [isKidsCategory, isWomenCategory, kidsImages, products]);
 
   if (query.isLoading) return <Loader text="Loading category..." />;
   if (query.isError) return <ErrorState message="Failed to load this category" />;
