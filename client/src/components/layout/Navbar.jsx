@@ -52,17 +52,17 @@ export const Navbar = () => {
         </div>
 
         <div className="mx-auto max-w-7xl px-4 py-4">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
             <div className="flex items-center justify-between md:hidden">
               <div className="relative shrink-0">
                 <button
                   type="button"
                   onClick={() => setIsMenuOpen((prev) => !prev)}
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-md border border-[#2b8a3e] bg-[#2b8a3e] text-white shadow-sm transition hover:brightness-110"
+                  className="inline-flex h-10 w-10 items-center justify-center text-ink transition hover:text-[#2b8a3e]"
                   aria-expanded={isMenuOpen}
                   aria-label="Open navigation menu"
                 >
-                  <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <path d="M4 6h16" />
                     <path d="M4 12h16" />
                     <path d="M4 18h16" />
@@ -87,19 +87,19 @@ export const Navbar = () => {
                 )}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <Link
                   to="/cart"
-                  className="relative inline-flex h-12 w-12 items-center justify-center rounded-md border border-black/15 bg-white text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                  className="relative inline-flex h-10 w-10 items-center justify-center text-ink transition hover:text-[#2b8a3e]"
                   aria-label={`Open cart${cartItemCount ? ` with ${cartItemCount} items` : ''}`}
                 >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <circle cx="9" cy="19" r="1.5" />
                     <circle cx="18" cy="19" r="1.5" />
                     <path d="M3 4h2l2.5 11h11l2-8H7" />
                   </svg>
                   {cartItemCount > 0 && (
-                    <span className="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-hotPink px-1.5 py-0.5 text-[11px] font-bold leading-none text-white">
+                    <span className="absolute -right-1 -top-1 inline-flex min-w-4 items-center justify-center rounded-full bg-hotPink px-1 py-0.5 text-[10px] font-bold leading-none text-white">
                       {cartItemCount}
                     </span>
                   )}
@@ -107,11 +107,11 @@ export const Navbar = () => {
 
                 <Link
                   to={user ? '/profile' : '/login'}
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/15 bg-[#f6f6f6] text-sm font-bold text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                  className="inline-flex h-10 w-10 items-center justify-center text-ink transition hover:text-[#2b8a3e]"
                   aria-label={user ? 'Open profile page' : 'Sign in'}
                   title={user ? 'Profile' : 'Sign In'}
                 >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <circle cx="12" cy="8" r="4" />
                     <path d="M4 21a8 8 0 0 1 16 0" />
                   </svg>
@@ -126,7 +126,7 @@ export const Navbar = () => {
               <span className="font-heading text-3xl leading-none text-ink">L$E</span>
             </Link>
 
-            <form className="flex min-w-0 flex-1" onSubmit={(event) => event.preventDefault()}>
+            <form className="-mt-1 flex min-w-0 flex-1 md:mt-0" onSubmit={(event) => event.preventDefault()}>
               <input
                 type="search"
                 placeholder="I'm looking for..."
@@ -147,7 +147,7 @@ export const Navbar = () => {
             <div className="hidden items-center gap-2 md:flex">
               <Link
                 to="/cart"
-                className="relative inline-flex h-12 w-12 items-center justify-center rounded-md border border-black/15 bg-white text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                className="relative inline-flex h-12 w-12 items-center justify-center text-ink transition hover:text-[#2b8a3e]"
                 aria-label={`Open cart${cartItemCount ? ` with ${cartItemCount} items` : ''}`}
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -164,7 +164,7 @@ export const Navbar = () => {
 
               <Link
                 to={user ? '/profile' : '/login'}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/15 bg-[#f6f6f6] text-sm font-bold text-ink transition hover:border-[#2b8a3e] hover:text-[#2b8a3e]"
+                className="inline-flex h-12 w-12 items-center justify-center text-ink transition hover:text-[#2b8a3e]"
                 aria-label={user ? 'Open profile page' : 'Sign in'}
                 title={user ? 'Profile' : 'Sign In'}
               >
