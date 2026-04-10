@@ -194,7 +194,28 @@ export const HomePage = () => {
       images: [homepageCardImages[index % homepageCardImages.length]],
     }));
   }, [allProducts, featuredProducts]);
-  const flashProducts = featuredProducts.slice(0, 4);
+  const flashProducts = useMemo(() => {
+    const targetCount = 6;
+    const items = [...featuredProducts];
+    const fallbackPool = allProducts.filter((product) => !items.some((item) => item._id === product._id));
+
+    while (items.length < targetCount) {
+      const fallback =
+        fallbackPool[items.length - featuredProducts.length] ||
+        allProducts[items.length % (allProducts.length || 1)];
+      if (!fallback) break;
+
+      items.push({
+        ...fallback,
+        _id: `${fallback._id}-flash-${items.length + 1}`,
+      });
+    }
+
+    return items.slice(0, targetCount).map((product, index) => ({
+      ...product,
+      images: [homepageCardImages[index % homepageCardImages.length]],
+    }));
+  }, [allProducts, featuredProducts]);
   const cartItemCount = (cartQuery.data?.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
 
   if (collectionsQuery.isLoading || featuredQuery.isLoading || productsQuery.isLoading) {
@@ -240,7 +261,7 @@ export const HomePage = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {flashProducts.map((product) => (
               <Link key={product._id} to={`/products/${product.slug}`} className="space-y-1 text-center">
                 <div className="aspect-square overflow-hidden rounded-xl bg-[#f3f3f3]">
