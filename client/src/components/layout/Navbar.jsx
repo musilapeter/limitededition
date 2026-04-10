@@ -5,6 +5,7 @@ import { fetchCart } from '../../services/cartService';
 import { useAuthStore } from '../../app/store/authStore';
 
 const desktopLinks = [
+  { label: 'Homepage', to: '/' },
   { label: "What's New", to: '/hero/whats-new' },
   { label: 'Flash Sale', to: '/hero/flash-sale' },
   { label: 'Women Clothing', to: '/hero/category/women-clothing' },
@@ -70,10 +71,6 @@ export const Navbar = () => {
 
                 {isMenuOpen && (
                   <div className="absolute left-0 top-full z-50 mt-3 w-[280px] overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_24px_60px_rgba(0,0,0,0.16)]">
-                    <div className="border-b border-black/10 bg-[#f8f8f8] px-4 py-3">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink/55">Explore</p>
-                      <p className="mt-1 text-sm text-ink/70">Homepage hero links</p>
-                    </div>
                     <div className="grid max-h-[70vh] gap-1 overflow-y-auto py-2">
                       {desktopLinks.map((item) => (
                         <Link
